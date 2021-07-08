@@ -1,0 +1,4 @@
+﻿tblCodeID,Code,Description,tblCodeTypeID,CodeType,Created,Modified,Deprecated
+202143,AUT,Autonomous,1587,MeasurementSetup,2020-02-14,2020-02-14,False
+202142,CM,Cable mounted,1587,MeasurementSetup,2020-02-14,2020-02-14,False
+202144,COMB,Combined,1587,MeasurementSetup,2020-02-14,2020-02-14,False

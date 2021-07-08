@@ -1,0 +1,19 @@
+﻿tblCodeID,Code,Description,tblCodeTypeID,CodeType,Created,Modified,Deprecated
+202168,JASCO,JASCO Amar,1585,RecorderType,2020-02-14,2020-02-14,False
+202154,LHD,Loggerhead DSG,1585,RecorderType,2020-02-14,2020-02-14,False
+202155,LHDS,Loggerhead DSG-ST,1585,RecorderType,2020-02-14,2020-02-14,False
+202153,LHL,Loggerhead LS1/LS2,1585,RecorderType,2020-02-14,2020-02-14,False
+202156,LHM,Loggerhead Medusa Acoustic Drifter,1585,RecorderType,2020-02-14,2020-02-14,False
+202152,LHS,Loggerhead SNAP,1585,RecorderType,2020-02-14,2020-02-14,False
+202160,OIS3H,OceanInstruments SOUNDTRAP 300 HF,1585,RecorderType,2020-02-14,2020-02-14,False
+202159,OIS3S,OceanInstruments SOUNDTRAP 300 STD,1585,RecorderType,2020-02-14,2020-02-14,False
+202158,OIS5H,OceanInstruments SOUNDTRAP 500 HF,1585,RecorderType,2020-02-14,2020-02-14,False
+202157,OIS5S,OceanInstruments SOUNDTRAP 500 STD,1585,RecorderType,2020-02-14,2020-02-14,False
+202161,OSL2,OceanSonics icListen 200kHz,1585,RecorderType,2020-02-14,2020-02-14,False
+202167,RTEAS,RTSys EASDA14 320,1585,RecorderType,2020-02-14,2020-02-14,False
+235414,RTSLP,RTSys Sylence-LP recorder,1585,RecorderType,2021-06-29,2021-06-29,False
+202162,WSM2M,Wildlife SM2M,1585,RecorderType,2020-02-14,2020-02-14,False
+202163,WSM2P,Wildlife SM2M+,1585,RecorderType,2020-02-14,2020-02-14,False
+202164,WSM3M,Wildlife SM3M,1585,RecorderType,2020-02-14,2020-02-14,False
+202165,WSM3P,Wildlife SM3M+,1585,RecorderType,2020-02-14,2020-02-14,False
+202166,WSM4M,Wildlife SM4M,1585,RecorderType,2020-02-14,2020-02-14,False

@@ -1,0 +1,8 @@
+﻿tblCodeID,Code,Description,tblCodeTypeID,CodeType,Created,Modified,Deprecated
+202145,BF,Bottom frame,1588,RigDesign,2020-02-14,2020-02-14,False
+202149,FV,From vessel,1588,RigDesign,2020-02-14,2020-02-14,False
+202147,GLD,Glider,1588,RigDesign,2020-02-14,2020-02-14,False
+202146,MFB,Mooring with floating buoy,1588,RigDesign,2020-02-14,2020-02-14,False
+202151,OTH,Other,1588,RigDesign,2020-02-14,2020-02-14,False
+202150,SFS,Supended from surface,1588,RigDesign,2020-02-14,2020-02-14,False
+202148,VMC,Vertical measurement chain,1588,RigDesign,2020-02-14,2020-02-14,False

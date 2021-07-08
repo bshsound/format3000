@@ -1,0 +1,8 @@
+﻿tblCodeID,Code,Description,tblCodeTypeID,CodeType,Created,Modified,Deprecated
+202139,COM,Commissioned measurements,1586,MeasurementPurpose,2020-02-14,2020-02-14,False
+202135,HMON,HELCOM monitoring,1586,MeasurementPurpose,2020-02-14,2020-02-14,False
+202138,NMON,National monitoring,1586,MeasurementPurpose,2020-02-14,2020-02-14,False
+202136,OMON,OSPAR monitoring,1586,MeasurementPurpose,2020-02-14,2020-02-14,False
+202141,OTH,Other,1586,MeasurementPurpose,2020-02-14,2020-02-14,False
+202140,PROJ,Project,1586,MeasurementPurpose,2020-02-14,2020-02-14,False
+202137,RD,Research,1586,MeasurementPurpose,2020-02-14,2020-02-14,False
