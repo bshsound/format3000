@@ -1,0 +1,10 @@
+﻿tblCodeID,Code,Description,tblCodeTypeID,CodeType,Created,Modified,Deprecated
+202197,CPC,Closed pressure chamber/pistonphone (250 Hz),1591,CalibrationProcedure,2020-02-14,2020-02-14,False
+202198,CPCM,Closed pressure chamber/pistonphone (multiple frequencies),1591,CalibrationProcedure,2020-02-14,2020-02-14,False
+202199,ELE,Electric,1591,CalibrationProcedure,2020-02-14,2020-02-14,False
+202201,FFA,Free field in air,1591,CalibrationProcedure,2020-02-14,2020-02-14,False
+202204,HP,Hydrostatic pressure,1591,CalibrationProcedure,2020-02-14,2020-02-14,False
+202205,OTH,Other,1591,CalibrationProcedure,2020-02-14,2020-02-14,False
+202203,OWC,Open water calibration,1591,CalibrationProcedure,2020-02-14,2020-02-14,False
+202200,SWT,Standing wave tank,1591,CalibrationProcedure,2020-02-14,2020-02-14,False
+202202,TC,Tank calibration,1591,CalibrationProcedure,2020-02-14,2020-02-14,False

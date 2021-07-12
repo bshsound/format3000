@@ -1,0 +1,4 @@
+﻿tblCodeID,Code,Description,tblCodeTypeID,CodeType,Created,Modified,Deprecated
+202196,AUBIAS,AU-BIAS (Tougaard 2019),1590,ProcessingAlgorithm,2020-02-14,2020-02-14,False
+202194,BIAS,BIAS (Betke et al 2015),1590,ProcessingAlgorithm,2020-02-14,2020-02-14,False
+202195,MER,Merchant et al (2015),1590,ProcessingAlgorithm,2020-02-14,2020-02-14,False
