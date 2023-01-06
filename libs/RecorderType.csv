@@ -1,4 +1,5 @@
 ﻿tblCodeID,Code,Description,tblCodeTypeID,CodeType,Created,Modified,Deprecated
+252595,CMP,Computer,1585,RecorderType,2022-08-26,2022-08-26,False
 202168,JASCO,JASCO Amar,1585,RecorderType,2020-02-14,2020-02-14,False
 202154,LHD,Loggerhead DSG,1585,RecorderType,2020-02-14,2020-02-14,False
 202155,LHDS,Loggerhead DSG-ST,1585,RecorderType,2020-02-14,2020-02-14,False
