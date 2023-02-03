@@ -984,8 +984,8 @@ end
             type = file(p+1:end);
             if isequal(type,'mat')
                 F = load([path file]);
-                F = struct2cell(F);
-                app.datetimeindex = F;
+%                 F = struct2cell(F);
+                app.datetimeindex = F.F;
                 app.Lamp_DateTime.Color = 'g';
             elseif isequal(type,'csv')
                 F = importdata([path file]);
@@ -1984,7 +1984,7 @@ assignin('base','h5File',dset);
 
             % Create RecorderTypeDropDown
             app.RecorderTypeDropDown = uidropdown(app.MetadataTab);
-            app.RecorderTypeDropDown.Items = {'Select ...', 'Computer', 'JASCO Amar', 'Loggerhead DSG', 'Loggerhead DSG-ST', 'Loggerhead LS1/LS2', 'Loggerhead Medusa Acoustic Drifter', 'Loggerhead SNAP', 'OceanInstruments SOUNDTRAP 300 HF', 'OceanInstruments SOUNDTRAP 300 STD', 'OceanInstruments SOUNDTRAP 500 HF', 'OceanInstruments SOUNDTRAP 500 STD', 'OceanSonics icListen 200kHz', 'RTSys EASDA14 320', 'RTSys Sylence-LP recorder', 'Wildlife SM2M', 'Wildlife SM2M+', 'Wildlife SM3M', 'Wildlife SM3M+', 'Wildlife SM4M'};
+            app.RecorderTypeDropDown.Items = {'Select ...', 'Computer', 'JASCO Amar', 'Loggerhead DSG', 'Loggerhead DSG-ST', 'Loggerhead LS1/LS2', 'Loggerhead Medusa Acoustic Drifter', 'Loggerhead SNAP', 'Multi Electronique - Aural-M2', 'Multi Electronique - µAURAL', 'OceanInstruments SOUNDTRAP 300 HF', 'OceanInstruments SOUNDTRAP 300 STD', 'OceanInstruments SOUNDTRAP 500 HF', 'OceanInstruments SOUNDTRAP 500 STD', 'OceanSonics icListen 200kHz', 'RTSys EASDA14 320', 'RTSys Sylence-LP recorder', 'Wildlife SM2M', 'Wildlife SM2M+', 'Wildlife SM3M', 'Wildlife SM3M+', 'Wildlife SM4M'};
             app.RecorderTypeDropDown.ValueChangedFcn = createCallbackFcn(app, @RecorderTypeDropDownValueChanged, true);
             app.RecorderTypeDropDown.Position = [239 423 109 22];
             app.RecorderTypeDropDown.Value = 'Select ...';
