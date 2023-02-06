@@ -1069,9 +1069,9 @@
 145791,2099,Oil & Gas UK,1398,EDMO,2015-02-06,2020-09-28,False
 144715,21,Conwy Borough Council,1398,EDMO,2015-02-06,2020-09-28,False
 145792,2100,Ministry of Agriculture, Fisheries and Food, Lowestoft Fisheries Laboratory,1398,EDMO,2015-02-06,2020-09-28,True
-145793,2101,Centre for Environment, Fisheries and Aquaculture Science, Conwy Laboratory (CEFAS),1398,EDMO,2015-02-06,2020-09-28,True
+145793,2101,Centre for Environment Fisheries and Aquaculture ScienceConwy Laboratory (CEFAS),1398,EDMO,2015-02-06,2020-09-28,True
 145794,2102,Ministry of Agriculture, Fisheries and Food, Conwy Laboratory,1398,EDMO,2015-02-06,2020-09-28,True
-145795,2103,Centre for Environment, Fisheries and Aquaculture Science, Burnham Laboratory (CEFAS),1398,EDMO,2015-02-06,2020-09-28,True
+145795,2103,Centre for Environment Fisheries and Aquaculture Science Burnham Laboratory (CEFAS),1398,EDMO,2015-02-06,2020-09-28,True
 145796,2104,Ministry of Agriculture, Fisheries and Food, Burnham Laboratory,1398,EDMO,2015-02-06,2020-09-28,True
 145797,2105,Norwegian Defence Research Establishment  (FFI),1398,EDMO,2015-02-06,2020-11-03,False
 145798,2106,The Norwegian Coastal Administration  (NCA),1398,EDMO,2015-02-06,2020-11-03,False
@@ -1195,7 +1195,7 @@
 145910,2221,Soresma N.V.-Haecon,1398,EDMO,2015-02-06,2020-09-28,True
 145911,2222,Agency for Maritime Services and Coast (AMDK),1398,EDMO,2015-02-06,2020-09-28,False
 145912,2223,Flemish Government, Environment, Nature and Energy, Flemish Environment Agency (VMM),1398,EDMO,2015-02-06,2020-12-05,False
-145913,2224,Centre for Environment, Fisheries and Aquaculture Science, Weymouth Laboratory (CEFAS),1398,EDMO,2015-02-06,2020-09-28,False
+145913,2224,Centre for Environment Fisheries and Aquaculture Science Weymouth Laboratory (CEFAS),1398,EDMO,2015-02-06,2020-09-28,False
 145914,2225,University of Southampton School of Engineering Sciences,1398,EDMO,2015-02-06,2020-09-28,True
 145915,2226,Det Norske Veritas Research AS,1398,EDMO,2015-02-06,2020-09-28,False
 145916,2227,Taurida V.I. Vernadsky National University,1398,EDMO,2015-02-06,2020-09-28,False
@@ -1795,7 +1795,7 @@
 147901,2797,Institute of Geography, Romanian Academy,1398,EDMO,2015-02-06,2020-12-05,False
 147902,2798,Non-native Species Secretariat (NNSS),1398,EDMO,2015-02-06,2020-09-28,False
 147903,2799,University Of Littoral Cote D'Opale, Departement Genie Biologique,1398,EDMO,2015-02-06,2020-12-05,False
-144722,28,Centre for Environment, Fisheries and Aquaculture Science, Lowestoft Laboratory (CEFAS),1398,EDMO,2015-02-06,2020-09-28,False
+144722,28,Centre for Environment Fisheries and Aquaculture Science Lowestoft Laboratory (CEFAS),1398,EDMO,2015-02-06,2020-09-28,False
 144927,280,CSIC-ICM, Institute of Marine Sciences (CSIC-ICM),1398,EDMO,2015-02-06,2021-04-30,False
 147904,2800,Institute of Geophysics,1398,EDMO,2015-02-06,2020-09-28,False
 147905,2801,Romanian Space Agency (ROSA),1398,EDMO,2015-02-06,2020-09-28,False
