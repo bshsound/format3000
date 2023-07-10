@@ -1,0 +1,85 @@
+
+R version 4.2.2 (2022-10-31 ucrt) -- "Innocent and Trusting"
+Copyright (C) 2022 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R ist freie Software und kommt OHNE JEGLICHE GARANTIE.
+Sie sind eingeladen, es unter bestimmten Bedingungen weiter zu verbreiten.
+Tippen Sie 'license()' or 'licence()' für Details dazu.
+
+R ist ein Gemeinschaftsprojekt mit vielen Beitragenden.
+Tippen Sie 'contributors()' für mehr Information und 'citation()',
+um zu erfahren, wie R oder R packages in Publikationen zitiert werden können.
+
+Tippen Sie 'demo()' für einige Demos, 'help()' für on-line Hilfe, oder
+'help.start()' für eine HTML Browserschnittstelle zur Hilfe.
+Tippen Sie 'q()', um R zu verlassen.
+
+[Vorher gesicherter Workspace wiederhergestellt]
+
+> ## Initiate R-functions
+> ## Create the url
+> 
+> get_uri <- function(service) {
++   paste0(
++     "https://underwaternoise.ices.dk/continuous/api/",
++     service
++   )
++ }
+> 
+> ## Get a token
+> token <- function(user,pw) {
++   res <-
++     httr::POST(
++       get_uri("token"),
++       body =
++         list(
++           UserName = user,
++           password = pw
++         ),
++       encode = "form"
++     )
++   
++   res_content <- httr::content(res)
++   
++   res_content$result$token
++ }
+> 
+> ## Get a list of file screenings 
+> getListFileScreenings <- function(jwt) {
++   res <-
++     httr::GET(
++       get_uri("getListFileScreenings"),
++       httr::add_headers(Authorization = paste("Bearer", jwt))
++     )
++   
++   # return list of submissions
++   httr::content(res)
++ }
+> 
+> ## Upload a file
+> UploadFile <- function(fname, jwt) {
++   file <- httr::upload_file(fname)
++   
++   res <-
++     httr::POST(
++       get_uri("UploadFile"),
++       httr::add_headers(Authorization = paste("Bearer", jwt)),
++       body = list(fileToUpload = file)
++     )
++   
++   message(httr::content(res))
++   
++   # return response
++   res
++ }
+> 
+> 
+> 
+> user <- "basan"
+> pw <- "Frba2706"
+> ## Gets javascript web token
+> jwt <- token(user,pw)
+Fehler in loadNamespace(x) : es gibt kein Paket namens 'httr'
+Ruft auf: token ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Ausführung angehalten

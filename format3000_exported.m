@@ -1810,7 +1810,7 @@ assignin('base','h5File',dset);
 
             % Create CountryCodeDropDown
             app.CountryCodeDropDown = uidropdown(app.FileInformationTab);
-            app.CountryCodeDropDown.Items = {'Select ...', 'BE', 'DE', 'DK', 'EE', 'FI', 'LT', 'LV', 'NL', 'NO', 'PL', 'RU', 'SCO', 'SE', 'UKE'};
+            app.CountryCodeDropDown.Items = {'Select ...', 'BE', 'DE', 'DK', 'EE', 'FI', 'GB', 'GB-ENG', 'GB-SCT', 'LT', 'LV', 'NL', 'NO', 'PL', 'RU', 'SE'};
             app.CountryCodeDropDown.ValueChangedFcn = createCallbackFcn(app, @CountryCodeDropDownValueChanged, true);
             app.CountryCodeDropDown.Position = [133 294 100 22];
             app.CountryCodeDropDown.Value = 'Select ...';
