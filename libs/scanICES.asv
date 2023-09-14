@@ -103,6 +103,7 @@ for ii = 1:length(depl)
             available_data{ad}.key = num2str(SubStats(st));
             available_data{ad}.station_name = All(idx(st)).description;
             available_data{ad}.filename = S(depl(ii)).fileName;
+            available_data{ad}.uploadid = S(depl(ii)).tblUploadID;
             available_data{ad}.lat = lat(st);
             available_data{ad}.lon = lon(st);
             available_data{ad}.days = length(overlap);
@@ -128,9 +129,11 @@ for ii = 1:length(q)
     data{ii}.nodays = 0;
     for jj = 1:length(sames)
         C{jj} = available_data{sames(jj)}.filename;
+        D{jj} = available_data{sames(jj)}
         data{ii}.nodays = data{ii}.nodays + available_data{sames(jj)}.days;
     end
     data{ii}.filename = C;
+    clear C
 end
 
 %% plot available data 
@@ -147,14 +150,13 @@ end
 LONLIMS = [-7   29];
 LATLIMS = [50   69];
 
-
+cla(AXES,'reset')
 m_proj('Mercator','long',LONLIMS,'lat',LATLIMS);
 m_gshhs_l('patch',[.85 .85 .85],'Parent',AXES);
 m_gshhs_l('color','k','Parent',AXES);
 m_gshhs_l('speckle','color','k','Parent',AXES);
 m_grid(AXES,'linewi',2,'tickdir','out');
-
-
+close
 % figure('Renderer', 'painters', 'Position', [200 200 800 800])
 % m_proj('Mercator','long',LONLIMS,'lat',LATLIMS);
 % % [CS,CH]=m_etopo2('contourf',[-3000:500:0],'edgecolor','none');
@@ -174,20 +176,15 @@ cmap = colormap(jet(12));
 for ii = 1:length(nodays)
    cc(ii,:) = cmap(min(find(le(nodays(ii),skala)==1)),:); 
 end
+hold(AXES, 'on' )
+m_scatter(lon,lat,60,cc,'filled','MarkerEdgeColor','k','Parent',AXES)
 close
-axes(AXES);
-hold on
-% cmap = colormap(jet(12)) ; %Create Colormap
-% cbh = colorbar ; %Create Colorbar
-% cbh.Ticks = 1/12:1/12:1; %Create 8 ticks from zero to 1
-% cbh.TickLabels = num2cell(skala) ; 
-% cbh.Label.String = "Number of available days";
-% 
-% % m_scatter(lon,lat,40,[0.8 0.4 0],'filled','MarkerEdgeColor','k')
-% title(['Available data at ICES from ' datestr(start_time) ' to ' datestr(end_time)],...
-%      'fontsize',14,'fontweight','bold');
-
- 
-
+cmap = colormap(AXES,jet(12)) ; %Create Colormap
+cbh = colorbar(AXES) ; %Create Colorbar
+close
+cbh.Ticks = 1/12:1/12:1; %Create 8 ticks from zero to 1
+cbh.TickLabels = num2cell(skala) ; 
+cbh.Label.String = "Number of available days";
+cbh.Label.FontSize = 12;
 end
 end

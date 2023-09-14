@@ -1,5 +1,7 @@
-%% Script that checks data availability for certain period and position at ICES database
-function  [data,avPo] = scanICES(AXES,lonmin,lonmax,latmin,latmax,start_time,end_time)
+
+function [data,avPo] = scanICESforstation(AXES,start_time,end_time,key)
+
+%% Script that checks data availability for certain period and station at ICES database
 
 %% get all submissions and positions of measurement stations
 % get list of all submissions
@@ -59,21 +61,15 @@ for ii = 1:length(StatDetail)
    end 
 end
 
-%% Check for spatial data availability (find which stations are within lat/lon) limits
-for ii = 1:length(lat)
-   sda(ii) = lonmin<lon(ii) && lon(ii)<lonmax && latmin<lat(ii) && lat(ii)<latmax ;
-end
-SubStats = SubStats.*sda;
+
 
 %% Check for temporal data availability
 ad = 0;
-for st = 1:length(idx)
-% if sda(st) == 0
-%     continue
-% end
-depl = find(strcmp({S.stationCode}, num2str(SubStats(st)))==1); % find all deployments for the st'th station in the Submission list S
+
+depl = find(strcmp({S.stationCode},key)); % find all deployments for the chosen station in the Submission list S
+find(str2num(key)==SubStats)
 if isempty(depl)
-    continue
+    uialert('No data was found for this station.')
 end
 
 for ii = 1:length(depl)
@@ -100,16 +96,16 @@ for ii = 1:length(depl)
 
         if status ==1
             ad = ad+1;
-            available_data{ad}.key = num2str(SubStats(st));
-            available_data{ad}.station_name = All(idx(st)).description;
+            available_data{ad}.key = num2str(SubStats);
+            available_data{ad}.station_name = All(idx).description;
             available_data{ad}.filename = S(depl(ii)).fileName;
             available_data{ad}.uploadid = S(depl(ii)).tblUploadID;
-            available_data{ad}.lat = lat(st);
-            available_data{ad}.lon = lon(st);
+            available_data{ad}.lat = lat;
+            available_data{ad}.lon = lon;
             available_data{ad}.days = length(overlap);
         end
 end
-end
+
 
 if ~exist('available_data','var') == 1
     disp('No data found.')
@@ -189,3 +185,17 @@ cbh.Label.String = "Number of available days";
 cbh.Label.FontSize = 12;
 end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,7 @@
-%% Script that checks data availability for certain period and position at ICES database
-function  [data,avPo] = scanICES(AXES,lonmin,lonmax,latmin,latmax,start_time,end_time)
+
+function [data,avPo] = scanICESforstation(AXES,start_time,end_time,key)
+
+%% Script that checks data availability for certain period and station at ICES database
 
 %% get all submissions and positions of measurement stations
 % get list of all submissions
@@ -59,21 +61,15 @@ for ii = 1:length(StatDetail)
    end 
 end
 
-%% Check for spatial data availability (find which stations are within lat/lon) limits
-for ii = 1:length(lat)
-   sda(ii) = lonmin<lon(ii) && lon(ii)<lonmax && latmin<lat(ii) && lat(ii)<latmax ;
-end
-SubStats = SubStats.*sda;
+
 
 %% Check for temporal data availability
 ad = 0;
-for st = 1:length(idx)
-% if sda(st) == 0
-%     continue
-% end
-depl = find(strcmp({S.stationCode}, num2str(SubStats(st)))==1); % find all deployments for the st'th station in the Submission list S
+
+depl = find(strcmp({S.stationCode},key)); % find all deployments for the chosen station in the Submission list S
+stid = find(str2num(key)==SubStats);
 if isempty(depl)
-    continue
+    uialert('No data was found for this station.')
 end
 
 for ii = 1:length(depl)
@@ -100,16 +96,16 @@ for ii = 1:length(depl)
 
         if status ==1
             ad = ad+1;
-            available_data{ad}.key = num2str(SubStats(st));
-            available_data{ad}.station_name = All(idx(st)).description;
+            available_data{ad}.key = num2str(SubStats(stid));
+            available_data{ad}.station_name = All(idx(stid)).description;
             available_data{ad}.filename = S(depl(ii)).fileName;
             available_data{ad}.uploadid = S(depl(ii)).tblUploadID;
-            available_data{ad}.lat = lat(st);
-            available_data{ad}.lon = lon(st);
+            available_data{ad}.lat = lat(stid);
+            available_data{ad}.lon = lon(stid);
             available_data{ad}.days = length(overlap);
         end
 end
-end
+
 
 if ~exist('available_data','var') == 1
     disp('No data found.')
@@ -150,7 +146,6 @@ end
 
 LONLIMS = [-7   29];
 LATLIMS = [50   69];
-
 cla(AXES,'reset')
 m_proj('Mercator','long',LONLIMS,'lat',LATLIMS);
 m_gshhs_l('patch',[.85 .85 .85],'Parent',AXES);
@@ -158,34 +153,22 @@ m_gshhs_l('color','k','Parent',AXES);
 m_gshhs_l('speckle','color','k','Parent',AXES);
 m_grid(AXES,'linewi',2,'tickdir','out');
 close
-% figure('Renderer', 'painters', 'Position', [200 200 800 800])
-% m_proj('Mercator','long',LONLIMS,'lat',LATLIMS);
-% % [CS,CH]=m_etopo2('contourf',[-3000:500:0],'edgecolor','none');
-% % colormap((m_colmap('blues')));  
-% m_gshhs_l('patch',[.85 .85 .85]);
-% m_gshhs_l('color','k');              % Coastline...
-% m_gshhs_l('speckle','color','k');    % with speckle added
-% m_grid('linewi',2,'tickdir','out'); % ,'backcolor',[.2 .65 1]); could add background color instead of white
-% hold on
-% 
-mini = min(nodays);
-maxi = max(nodays);
-range = maxi-mini;
-skala = mini:range/11:maxi;
-skala = round(skala);
-cmap = colormap(jet(12));
-for ii = 1:length(nodays)
-   cc(ii,:) = cmap(min(find(le(nodays(ii),skala)==1)),:); 
-end
 hold(AXES, 'on' )
-avPo = m_scatter(lon,lat,60,cc,'filled','MarkerEdgeColor','k','Parent',AXES);
+avPo = m_scatter(lon,lat,70,[0.8 0.4 0],'filled','MarkerEdgeColor','k','Parent',AXES);
 close
-cmap = colormap(AXES,jet(12)) ; %Create Colormap
-cbh = colorbar(AXES) ; %Create Colorbar
-close
-cbh.Ticks = 1/12:1/12:1; %Create 8 ticks from zero to 1
-cbh.TickLabels = num2cell(skala) ; 
-cbh.Label.String = "Number of available days";
-cbh.Label.FontSize = 12;
 end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
