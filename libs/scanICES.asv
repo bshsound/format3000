@@ -1,5 +1,5 @@
 %% Script that checks data availability for certain period and position at ICES database
-function  data = scanICES(AXES,lonmin,lonmax,latmin,latmax,start_time,end_time)
+function  [data,avPo] = scanICES(AXES,lonmin,lonmax,latmin,latmax,start_time,end_time)
 
 %% get all submissions and positions of measurement stations
 % get list of all submissions
@@ -129,11 +129,12 @@ for ii = 1:length(q)
     data{ii}.nodays = 0;
     for jj = 1:length(sames)
         C{jj} = available_data{sames(jj)}.filename;
-        D{jj} = available_data{sames(jj)}
+        D{jj} = available_data{sames(jj)}.uploadid;
         data{ii}.nodays = data{ii}.nodays + available_data{sames(jj)}.days;
     end
     data{ii}.filename = C;
-    clear C
+    data{ii}.uploadid = D;
+    clear C D
 end
 
 %% plot available data 
@@ -177,7 +178,7 @@ for ii = 1:length(nodays)
    cc(ii,:) = cmap(min(find(le(nodays(ii),skala)==1)),:); 
 end
 hold(AXES, 'on' )
-m_scatter(lon,lat,60,cc,'filled','MarkerEdgeColor','k','Parent',AXES)
+avPo = m_scatter(lon,lat,60,cc,'filled','MarkerEdgeColor','k','Parent',AXES);
 close
 cmap = colormap(AXES,jet(12)) ; %Create Colormap
 cbh = colorbar(AXES) ; %Create Colorbar
@@ -186,5 +187,11 @@ cbh.Ticks = 1/12:1/12:1; %Create 8 ticks from zero to 1
 cbh.TickLabels = num2cell(skala) ; 
 cbh.Label.String = "Number of available days";
 cbh.Label.FontSize = 12;
+
+        delete(app.MB)
+        bndry_lat=[app.southlim app.northlim app.northlim app.southlim app.southlim];
+        bndry_lon=[app.westlim app.westlim app.eastlim app.eastlim app.westlim];
+        app.MB = m_line(bndry_lon,bndry_lat,'Parent',app.uimap,'Color',[1.00,0.07,0.65],'LineWidth',2);
+
 end
 end

@@ -187,5 +187,11 @@ cbh.Ticks = 1/12:1/12:1; %Create 8 ticks from zero to 1
 cbh.TickLabels = num2cell(skala) ; 
 cbh.Label.String = "Number of available days";
 cbh.Label.FontSize = 12;
+
+
+bndry_lat=[latmin latmax latmax latmin latmin];
+bndry_lon=[lonmin lonmin lonmax lonmax lonmin];
+m_line(bndry_lon,bndry_lat,'Parent',AXES,'Color',[1.00,0.07,0.65],'LineWidth',1);
+
 end
 end

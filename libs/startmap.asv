@@ -1,4 +1,4 @@
-function MB = startmap(AXES)
+function startmap(AXES)
 LONLIMS = [-7   29];
 LATLIMS = [50   69];
 cla(AXES,'reset')
@@ -8,9 +8,9 @@ m_gshhs_l('patch',[.85 .85 .85],'Parent',AXES);
 m_gshhs_l('color','k','Parent',AXES);
 m_gshhs_l('speckle','color','k','Parent',AXES);
 bndry_lat=[50 69 69 50];
-bndry_lon=[-7 -7 29 29];
+bndry_lon=[-1 -1 28 28];
+m_line(bndry_lon,bndry_lat,'Parent',AXES,'Color',[1 0 0])
 m_grid(AXES,'linewi',2,'tickdir','out');
-MB = m_line(bndry_lon,bndry_lat,'Parent',AXES,'Color',[0 0 0],'LineWidth',1)
 close
 hold(AXES, 'on' )
 
