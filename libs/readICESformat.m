@@ -44,6 +44,9 @@ try
     F.Metadata.MeasurementPurpose = h5read([path file],'/Metadata/MeasurementPurpose');
 end
 try
+    F.Metadata.MeasurementSetup = h5read([path file],'/Metadata/MeasurementSetup');
+end
+try
     F.Metadata.RigDesign = h5read([path file],'/Metadata/RigDesign');
 end
 try
@@ -78,6 +81,9 @@ try
 end
 try
     F.Metadata.CalibrationProcedure = h5read([path file],'/Metadata/CalibrationProcedure');
+end
+try
+    F.Metadata.CalibrationDateTime = h5read([path file],'/Metadata/CalibrationDateTime');
 end
 try
     F.Metadata.Comments = h5read([path file],'/Metadata/Comments');
