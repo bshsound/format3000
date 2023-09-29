@@ -24,15 +24,13 @@ request = matlab.net.http.RequestMessage(matlab.net.http.RequestMethod.POST, hea
 % Get result
 screenList = resp.Body.Data;
 
-% url2 = https://underwaternoise.ices.dk/continuous/API/pushFileDatabase/{tblFileScreeningID}
+% %% get detailed screening list
+% url2 = 'https://underwaternoise.ices.dk/continuous/api/getListOfScreeningFilesDetails';
+% options = weboptions('KeyName','Authorization','KeyValue',['Bearer ' jwt]);
+% screenListDetails = webread(url2,options);
 % 
-% url2 = ['https://underwaternoise.ices.dk/continuous/api/getListOfScreeningFilesDetails/' num2str(screenList(1).tblFileScreeningID)];
-% % url2 = ['https://underwaternoise.ices.dk/continuous/api/getScreeningSessionMessages/' num2str(screenList(1).tblFileScreeningID)];
-% header = matlab.net.http.HeaderField('Authorization', ['Bearer ' jwt]);
-% % Create HTTP request message
-% request = matlab.net.http.RequestMessage(matlab.net.http.RequestMethod.POST, header);
-% % Send HTTP request
-% [resp,a,req] = request.send(url2);
-% % Get result
-% screenList = resp.Body.Data;
+% %% get detailed Screenmessage
+% id = 3887;
+% url3 = ['https://underwaternoise.ices.dk/continuous/api/getScreeningSessionMessages/' num2str(id) '/'];
+% ScreeningMessage = webread(url3,options);
 end
