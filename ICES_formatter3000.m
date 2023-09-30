@@ -1,12 +1,15 @@
-classdef format3000_exported < matlab.apps.AppBase
+classdef ICES_formatter3000 < matlab.apps.AppBase
 
     % Properties that correspond to app components
     properties (Access = public)
-        UIFigure                        matlab.ui.Figure
+        ICESformatterUIFigure           matlab.ui.Figure
         Menu                            matlab.ui.container.Menu
+        LoadICESh5fileMenu              matlab.ui.container.Menu
         LoadBSHh5fileMenu               matlab.ui.container.Menu
         LoadPAMGuidecsvfileMenu         matlab.ui.container.Menu
         LoadJOMOPANSh5fileMenu          matlab.ui.container.Menu
+        ICESlogincredentialsMenu        matlab.ui.container.Menu
+        SaveastemplateMenu              matlab.ui.container.Menu
         HelpMenu                        matlab.ui.container.Menu
         SeeICEScontinuousnoisedataformatMenu  matlab.ui.container.Menu
         TabGroup                        matlab.ui.container.TabGroup
@@ -133,6 +136,7 @@ classdef format3000_exported < matlab.apps.AppBase
         GotoICEScontinuousnoiseregistryButton  matlab.ui.control.Button
         BSH2021Label                    matlab.ui.control.Label
         ResetButton                     matlab.ui.control.Button
+        UploadfilesButton               matlab.ui.control.Button
     end
 
     
@@ -179,6 +183,8 @@ classdef format3000_exported < matlab.apps.AppBase
         endtime% Description
         New % Description
         saveh5name
+        User % username of ICES underwater noise database
+        Password % Password of ICES underwater noise database
     end
     
 
@@ -202,7 +208,7 @@ classdef format3000_exported < matlab.apps.AppBase
             [file,path] = uigetfile({'*.h5;*.mat;*.csv','Data Files (*.h5,*.mat,*.csv)';'*.*','All Files (*.*)'}, ...
             'Select File',lastdir); 
             drawnow;
-            figure(app.UIFigure)
+            figure(app.ICESformatterUIFigure)
             p = max(strfind(file,'.'));
             type = file(p+1:end);
             if isequal(type,'mat')
@@ -255,7 +261,7 @@ classdef format3000_exported < matlab.apps.AppBase
                  end
                 [indx,tf] = listdlg('SelectionMode','single','ListString',name);
                 drawnow;
-                figure(app.UIFigure)
+                figure(app.ICESformatterUIFigure)
 %                 for ii =1:length(IG)
 %                     for jj=1:length(IG(ii).Datasets)
 %                         name=char(IG(ii).Datasets(jj).Name);
@@ -273,7 +279,7 @@ classdef format3000_exported < matlab.apps.AppBase
                 end
                 app.leq{1,channel}=double(F);
                 drawnow;
-                figure(app.UIFigure)
+                figure(app.ICESformatterUIFigure)
                 app.LeqMeasurementsPanel.Children(end-(channel*2-1)).Color = 'g';
             end 
             app.loadpath = path;
@@ -730,7 +736,7 @@ classdef format3000_exported < matlab.apps.AppBase
             [file,path] = uigetfile({'*.h5;*.mat;*.csv','Data Files (*.h5,*.mat,*.csv)';'*.*','All Files (*.*)'}, ...
             'Select File',lastdir);   
             drawnow;
-            figure(app.UIFigure)          
+            figure(app.ICESformatterUIFigure)          
             p = max(strfind(file,'.'));
             type = file(p+1:end);
             if isequal(type,'mat')
@@ -782,7 +788,7 @@ classdef format3000_exported < matlab.apps.AppBase
 %                 datasets=name(emptyCells==0);
                 [indx,~] = listdlg('SelectionMode','single','ListString',name);
                 drawnow;
-                figure(app.UIFigure)
+                figure(app.ICESformatterUIFigure)
 %                 for ii =1:length(IG)
 %                     for jj=1:length(IG(ii).Datasets)
 %                         name=char(IG(ii).Datasets(jj).Name);
@@ -797,7 +803,7 @@ classdef format3000_exported < matlab.apps.AppBase
                 F = h5read([path file],['/' Group '/' Dataset]);
                 app.fi=double(F);
                 drawnow;
-                figure(app.UIFigure)
+                figure(app.ICESformatterUIFigure)
                 app.Lamp_FrequencyIndex.Color = 'g';
                 app.loadpath = path;
             end
@@ -979,13 +985,13 @@ end
             [file,path] = uigetfile({'*.h5;*.mat;*.csv','Data Files (*.h5,*.mat,*.csv)';'*.*','All Files (*.*)'}, ...
             'Select File',lastdir); 
             drawnow;
-            figure(app.UIFigure)          
+            figure(app.ICESformatterUIFigure)          
             p = max(strfind(file,'.'));
             type = file(p+1:end);
             if isequal(type,'mat')
                 F = load([path file]);
-%                 F = struct2cell(F);
-                app.datetimeindex = F.F;
+                F = struct2cell(F);
+                app.datetimeindex = F;
                 app.Lamp_DateTime.Color = 'g';
             elseif isequal(type,'csv')
                 F = importdata([path file]);
@@ -1031,7 +1037,7 @@ end
                  end
                 [indx,~] = listdlg('SelectionMode','single','ListString',name);
                 drawnow;
-                figure(app.UIFigure)
+                figure(app.ICESformatterUIFigure)
 %                 for ii =1:length(IG)
 %                     for jj=1:length(IG(ii).Datasets)
 %                         name=char(IG(ii).Datasets(jj).Name);
@@ -1067,7 +1073,7 @@ end
                     errordlg('Datetime type not recognized')
                 end         
                 drawnow;
-                figure(app.UIFigure)
+                figure(app.ICESformatterUIFigure)
                 app.Lamp_DateTime.Color = 'g';
             end
             
@@ -1085,7 +1091,7 @@ end
             [file,path] = uigetfile({'*.mat';'*.csv';'*.h5'},...
                           'File Selector'); 
             drawnow;
-            figure(app.UIFigure)
+            figure(app.ICESformatterUIFigure)
             p = max(strfind(file,'.'));
             type = file(p+1:end);
             if isequal(type,'mat')
@@ -1110,7 +1116,7 @@ end
                 datasets=name(emptyCells==0);
                 [indx,tf] = listdlg('SelectionMode','single','ListString',datasets);
                 drawnow;
-                figure(app.UIFigure)
+                figure(app.ICESformatterUIFigure)
                 for ii =1:length(IG)
                     for jj=1:length(IG(ii).Datasets)
                         name=char(IG(ii).Datasets(jj).Name);
@@ -1123,7 +1129,7 @@ end
                 F = h5read([path file],['/' Group '/' Dataset]);
                 app.leq{1,channel}=double(F);
                 drawnow;
-                figure(app.UIFigure)
+                figure(app.ICESformatterUIFigure)
                 app.Lamp_leq.Color = 'g';
             end
             
@@ -1135,7 +1141,7 @@ end
             %% where
             [file,path] = uiputfile('*.h5', 'Save as:');
             drawnow;
-            figure(app.UIFigure);
+            figure(app.ICESformatterUIFigure);
             %% Create the dataset:
             
 dset = struct(...
@@ -1277,7 +1283,7 @@ assignin('base','h5File',dset);
             [file,path] = uigetfile({'*.h5;*.mat;*.csv','Data Files (*.h5,*.mat,*.csv)';'*.*','All Files (*.*)'}, ...
             'Select File',lastdir); 
             drawnow;
-            figure(app.UIFigure)          
+            figure(app.ICESformatterUIFigure)          
             p = max(strfind(file,'.'));
             type = file(p+1:end);
             if isequal(type,'mat')
@@ -1322,7 +1328,7 @@ assignin('base','h5File',dset);
                  end
                 [indx,~] = listdlg('SelectionMode','single','ListString',name);
                 drawnow;
-                figure(app.UIFigure)
+                figure(app.ICESformatterUIFigure)
                 Group = group{indx};
                 Dataset = name{indx};
                 F = h5read([path file],['/' Group '/' Dataset]);
@@ -1330,7 +1336,7 @@ assignin('base','h5File',dset);
                 app.MeasurementTotalNoEditField.Value = double(F);
                 app.Lamp_MeasurementTotalNo.Color = 'g';
                 drawnow;
-                figure(app.UIFigure)
+                figure(app.ICESformatterUIFigure)
             end
         end
 
@@ -1344,7 +1350,7 @@ assignin('base','h5File',dset);
             [file,path] = uigetfile({'*.h5;*.mat;*.csv','Data Files (*.h5,*.mat,*.csv)';'*.*','All Files (*.*)'}, ...
             'Select File',lastdir);   
             drawnow;
-            figure(app.UIFigure)          
+            figure(app.ICESformatterUIFigure)          
             p = max(strfind(file,'.'));
             type = file(p+1:end);
             if isequal(type,'mat')
@@ -1389,7 +1395,7 @@ assignin('base','h5File',dset);
                  end
                 [indx,~] = listdlg('SelectionMode','single','ListString',name);
                 drawnow;
-                figure(app.UIFigure)
+                figure(app.ICESformatterUIFigure)
                 Group = group{indx};
                 Dataset = name{indx};
                 F = h5read([path file],['/' Group '/' Dataset]);
@@ -1397,7 +1403,7 @@ assignin('base','h5File',dset);
                 app.FrequencyCountSpinner.Value = double(F);
                 app.Lamp_FrequencyCount.Color = 'g';
                 drawnow;
-                figure(app.UIFigure)
+                figure(app.ICESformatterUIFigure)
                 app.loadpath = path;
             end
             app.loadpath = path;
@@ -1413,7 +1419,7 @@ assignin('base','h5File',dset);
             [file,path] = uigetfile({'*.csv','PAMGuide .csv files (*.csv)';'*.*','All Files (*.*)'}, ...
             'Select PAMGuide Output File',lastdir);   
             drawnow;
-            figure(app.UIFigure)
+            figure(app.ICESformatterUIFigure)
             filename = [path file];
             try
                 F = load(filename);
@@ -1491,7 +1497,7 @@ assignin('base','h5File',dset);
             [file,path] = uigetfile({'*.h5','BSH-format .h5 files (*.h5)';'*.*','All Files (*.*)'}, ...
             'Select .h5 file in BSH- format',lastdir);   
             drawnow;
-            figure(app.UIFigure)
+            figure(app.ICESformatterUIFigure)
             filename = [path file];
             
             %% File Information
@@ -1608,11 +1614,11 @@ assignin('base','h5File',dset);
         % Button pushed function: ResetButton
         function ResetButtonPushed(app, event)
     % Make current instance of app invisible
-    app.UIFigure.Visible = 'off';
+    app.ICESformatterUIFigure.Visible = 'off';
     % Open 2nd instance of app
     format3000();  % <--------------The name of your app
     % Delete old instance
-    close(app.UIFigure) %Thanks to Guillaume for suggesting to use close() rather than delete()
+    close(app.ICESformatterUIFigure) %Thanks to Guillaume for suggesting to use close() rather than delete()
 
         end
 
@@ -1626,7 +1632,7 @@ assignin('base','h5File',dset);
             [file,path] = uigetfile({'*.h5','BSH-format .h5 files (*.h5)';'*.*','All Files (*.*)'}, ...
             'Select .h5 file in BSH- format',lastdir);   
             drawnow;
-            figure(app.UIFigure)
+            figure(app.ICESformatterUIFigure)
             filename = [path file];
             
             %% File Information
@@ -1694,6 +1700,405 @@ assignin('base','h5File',dset);
             
             
         end
+
+        % Menu selected function: ICESlogincredentialsMenu
+        function ICESlogincredentialsMenuSelected(app, event)
+            prompt = {'Enter ICES user name:','Enter ICES password:'};
+            dlgtitle = 'ICES login credentials';
+            dims = [1 35];
+            definput = {'Username','Password'};
+            answer = inputdlg(prompt,dlgtitle,dims,definput);
+            app.User = answer{1};
+            app.Password = answer{2};
+        end
+
+        % Button pushed function: UploadfilesButton
+        function UploadfilesButtonPushed(app, event)
+            %% Start dialogue where user can chosse to either upload 1 or more files
+            [filenameS, pathS] = uigetfile('*.h5','Select one or more h5 file(s) to upload','MultiSelect', 'on');
+            if isempty(app.User)
+                prompt = {'Enter ICES user name:','Enter ICES password:'};
+                dlgtitle = 'ICES login credentials';
+                dims = [1 35];
+                definput = {'Username','Password'};
+                answer = inputdlg(prompt,dlgtitle,dims,definput);
+                app.User = answer{1};
+                app.Password = answer{2};
+                h5upload(app.User,app.Password,filenameS,pathS);
+            else
+                h5upload(app.User,app.Password,filenameS,pathS);
+            end
+        end
+
+        % Menu selected function: LoadICESh5fileMenu
+        function LoadICESh5fileMenuSelected(app, event)
+            [file,path] = uigetfile({'*.h5','ICES-format .h5 files (*.h5)';'*.*','All Files (*.*)'}, ...
+            'Select .h5 file in ICES- format');   
+            drawnow;
+            figure(app.ICESformatterUIFigure)
+            ICESh5 = readICESformat(file,path);
+            %% FileInformation
+            try
+                app.EmailEditField.Value = deblank(ICESh5.FileInformation.Email{1});
+                app.Email = deblank(ICESh5.FileInformation.Email{1});
+                app.Lamp_Email.Color = [0 1 0]; 
+            end
+            try
+                A = strsplit(ICESh5.FileInformation.CreationDate{1},' ');
+                app.CreationDate = ICESh5.FileInformation.CreationDate{1};
+                app.CreationDateDatePicker.Value = datetime(A{1}(1:10),'InputFormat','yyyy-MM-dd');
+                app.TimeEditField.Value = A{2}(1:5); clear A;
+                app.Lamp_CreationDate.Color = [0 1 0]; 
+            end
+            try
+                A = strsplit(ICESh5.FileInformation.StartDate{1},' ');
+                app.StartDateDatePicker.Value = datetime(A{1}(1:10),'InputFormat','yyyy-MM-dd');
+                app.StartDate = ICESh5.FileInformation.StartDate{1};
+                app.TimeEditField_2.Value = A{2}(1:5); clear A;
+                app.Lamp_StartDate.Color = [0 1 0]; 
+            end
+            try
+                A = strsplit(ICESh5.FileInformation.EndDate{1},' ');
+                app.EndDateDatePicker.Value = datetime(A{1}(1:10),'InputFormat','yyyy-MM-dd');
+                app.EndDate = ICESh5.FileInformation.EndDate{1};
+                app.TimeEditField_3.Value = A{2}(1:5); clear A;
+                app.Lamp_EndDate.Color = [0 1 0]; 
+            end
+            try % Institution must be converted from ICES code to actual information as string
+                A = deblank(ICESh5.FileInformation.Institution{1});
+                app.Lamp_Institution.Color = [0 1 0];       
+                fileID = fopen('.\libs\RECO_Export_07-14-2021-01-14-31.csv');
+                Q = textscan(fileID,'%s %s %s %s %s %s %s %s %s %s','delimiter',',');
+                fclose(fileID);
+                matchstr=A;
+                ix = strfind(Q{1,2},matchstr);
+                idx = find(~cellfun(@isempty,ix));
+                app.InstitutionEditField.Value = char(Q{1,3}(idx));
+                app.Institution = A;
+            end   
+            try
+                app.ContactEditField.Value = deblank(ICESh5.FileInformation.Contact{1});
+                app.Contact = deblank(ICESh5.FileInformation.Contact{1});
+                app.Lamp_Contact.Color = [0 1 0]; 
+            end
+            try
+                A = deblank(ICESh5.FileInformation.CountryCode{1});
+                idx = strfind(app.CountryCodeDropDown.Items,A);
+                idx = find(~cellfun(@isempty,idx));
+                app.CountryCodeDropDown.Value = app.CountryCodeDropDown.Items{idx};
+                app.CountryCode = deblank(ICESh5.FileInformation.CountryCode{1});
+                app.Lamp_CountryCode.Color = [0 1 0]; 
+            end
+            try % StationCode must be converted from ICES code to actual information as string
+                A = deblank(ICESh5.FileInformation.StationCode{1});    
+                fileID = fopen('.\libs\StationCode.csv');
+                Q = textscan(fileID,'%s %s %s %s %s %s %s %s %s %s','delimiter',',');
+                fclose(fileID);
+                matchstr=A;
+                ix = strfind(Q{1,2},matchstr);
+                idx = find(~cellfun(@isempty,ix));
+                app.StationCodeEditField.Value = char(Q{1,3}(idx));
+                app.StationCode = deblank(ICESh5.FileInformation.StationCode{1});
+                app.Lamp_StationCode.Color = [0 1 0];
+            end
+            %% Metadata
+            try % HydrophoneType must be converted from ICES code to actual information as string
+                A = deblank(ICESh5.Metadata.HydrophoneType{1});  
+                fileID = fopen('.\libs\HydrophoneType.csv');
+                Q = textscan(fileID,'%s %s %s %s %s %s %s %s','delimiter',',');
+                fclose(fileID);
+                ix = strfind(Q{1,2},A);
+                idx = ~cellfun(@isempty,ix);
+                udx = strcmp(app.HydrophoneTypeDropDown.Items ,char(Q{1,3}(idx))) == 1;
+                app.HydrophoneTypeDropDown.Value = app.HydrophoneTypeDropDown.Items{udx};
+                app.HydrophoneType = deblank(ICESh5.Metadata.HydrophoneType{1});
+                app.Lamp_HydrophoneType.Color = [0 1 0];
+            end
+            try
+                app.HydrophoneSerialNumberEditField.Value = deblank(ICESh5.Metadata.HydrophoneSerialNumber{1});
+                app.HydrophoneSerialNumber = deblank(ICESh5.Metadata.HydrophoneSerialNumber{1});
+                app.Lamp_HydrophoneSerialNumber.Color = [0 1 0]; 
+            end
+            try % RecorderType must be converted from ICES code to actual information as string
+                A = deblank(ICESh5.Metadata.RecorderType{1});  
+                fileID = fopen('.\libs\RecorderType.csv');
+                Q = textscan(fileID,'%s %s %s %s %s %s %s %s','delimiter',',');
+                fclose(fileID);
+                ix = strfind(Q{1,2},A);
+                idx = ~cellfun(@isempty,ix);
+                udx = strcmp(app.RecorderTypeDropDown.Items ,char(Q{1,3}(idx))) == 1;
+                app.RecorderTypeDropDown.Value = app.RecorderTypeDropDown.Items{udx};
+                app.RecorderType = deblank(ICESh5.Metadata.RecorderType{1});
+                app.Lamp_RecorderType.Color = [0 1 0];
+            end
+            try
+                app.RecorderSerialNumberEditField.Value = deblank(ICESh5.Metadata.RecorderSerialNumber{1});
+                app.RecorderSerialNumber = deblank(ICESh5.Metadata.RecorderSerialNumber{1});
+                app.Lamp_RecorderSerialNumber.Color = [0 1 0]; 
+            end
+            try
+                app.MeasurementHeightEditField.Value = num2str(deblank(ICESh5.Metadata.MeasurementHeight));
+                app.MeasurementHeight = deblank(ICESh5.Metadata.MeasurementHeight);
+                app.Lamp_MeasurementHeight.Color = [0 1 0]; 
+            end
+            try % MeasurementPurpose must be converted from ICES code to actual information as string
+                A = deblank(ICESh5.Metadata.MeasurementPurpose{1});  
+                fileID = fopen('.\libs\MeasurementPurpose.csv');
+                Q = textscan(fileID,'%s %s %s %s %s %s %s %s','delimiter',',');
+                fclose(fileID);
+                ix = strfind(Q{1,2},A);
+                idx = find(~cellfun(@isempty,ix));
+                udx = find(strcmp(app.MeasurementPurposeDropDown.Items ,char(Q{1,3}(idx))) == 1);
+                app.MeasurementPurposeDropDown.Value = app.MeasurementPurposeDropDown.Items{udx};
+                app.MeasurementPurpose = deblank(ICESh5.Metadata.MeasurementPurpose{1});
+                app.Lamp_MeasurementPurpose.Color = [0 1 0];
+            end
+            try % MeasurementSetup must be converted from ICES code to actual information as string
+                A = deblank(ICESh5.Metadata.MeasurementSetup{1});  
+                fileID = fopen('.\libs\MeasurementSetup.csv');
+                Q = textscan(fileID,'%s %s %s %s %s %s %s %s','delimiter',',');
+                fclose(fileID);
+                ix = strfind(Q{1,2},A);
+                idx = find(~cellfun(@isempty,ix));
+                udx = find(strcmp(app.MeasurementSetupDropDown.Items ,char(Q{1,3}(idx))) == 1);
+                app.MeasurementSetupDropDown.Value = app.MeasurementSetupDropDown.Items{udx};
+                app.MeasurementSetup = deblank(ICESh5.Metadata.MeasurementSetup{1});
+                app.Lamp_MeasurementSetup.Color = [0 1 0];
+            end
+            try % RigDesign must be converted from ICES code to actual information as string
+                A = deblank(ICESh5.Metadata.RigDesign{1});  
+                fileID = fopen('.\libs\RigDesign.csv');
+                Q = textscan(fileID,'%s %s %s %s %s %s %s %s','delimiter',',');
+                fclose(fileID);
+                ix = strfind(Q{1,2},A);
+                idx = find(~cellfun(@isempty,ix));
+                udx = find(strcmp(app.RigDesignDropDown.Items ,char(Q{1,3}(idx))) == 1);
+                app.RigDesignDropDown.Value = app.RigDesignDropDown.Items{udx};
+                app.RigDesign = deblank(ICESh5.Metadata.RigDesign{1});
+                app.Lamp_RigDesign.Color = [0 1 0];
+            end
+            try
+                app.FrequencyCountSpinner.Value = double(deblank(ICESh5.Metadata.FrequencyCount));
+                app.FrequencyCount = cast(double(deblank(ICESh5.Metadata.FrequencyCount)),'uint64');
+                app.Lamp_FrequencyCount.Color = [0 1 0]; 
+            end
+            try
+                app.fi = double(deblank(ICESh5.Metadata.FrequencyIndex));
+                app.Lamp_FrequencyIndex.Color = 'g';
+            end
+            try
+                app.FrequencyUnitDropDown.Value = app.FrequencyUnitDropDown.Items{2};     
+                app.fu = 'Hz';
+                app.Lamp_FrequencyUnit.Color = 'g';
+            end
+            try
+                app.ChannelCountSpinner.Value = double(ICESh5.Metadata.ChannelCount);
+                value = app.ChannelCountSpinner.Value;
+                app.ChannelCount = cast(value,'uint64');
+                if value==1
+                    start =1;
+                else
+                    start = length(app.New.button)+1;
+                end
+                for ii=start:value
+                    app.New.button{1,ii} = uibutton(app.LeqMeasurementsPanel,'push','Text',['Leq Measurements of Channel ' num2str(ii)],'Position',[50,380-23*ii, 200, 22]);
+                    app.New.lamp{1,ii} = uilamp(app.LeqMeasurementsPanel,"Color",'r',"Position",[10,380-23*ii, 20, 20]);
+                    app.New.button{1,ii}.ButtonPushedFcn = @app.leqbuttondown;
+                end
+                app.Lamp_ChannelCount.Color = 'g';
+            end
+            try
+                app.MeasurementTotalNoEditField.Value = double(ICESh5.Metadata.MeasurementTotalNo);
+                app.MeasurementTotalNo = cast(double(ICESh5.Metadata.MeasurementTotalNo),'uint64');
+                app.Lamp_MeasurementTotalNo.Color = 'g';
+            end
+            try
+                app.MeasurementUnitDropDown.Value = app.MeasurementUnitDropDown.Items{2};
+                app.MeasurementUnit = 'SPL';
+                app.Lamp_MeasurementUnit.Color = 'g';
+            end
+            try
+                app.AveragingTimeSpinner.Value = double(ICESh5.Metadata.AveragingTime);
+                app.AveragingTime = cast(double(ICESh5.Metadata.AveragingTime),'uint64')
+                app.Lamp_AveragingTime.Color = 'g';
+            end
+            try % ProcessingAlgorithm must be converted from ICES code to actual information as string
+                A = deblank(ICESh5.Metadata.ProcessingAlgorithm{1});
+                app.ProcessingAlgorithm = A;
+                fileID = fopen('.\libs\ProcessingAlgorithm.csv');
+                Q = textscan(fileID,'%s %s %s %s %s %s %s %s','delimiter',',');
+                fclose(fileID);
+                ix = strfind(Q{1,2},A);
+                idx = find(~cellfun(@isempty,ix));
+                udx = find(strcmp(app.ProcessingAlgorithmDropDown.Items ,char(Q{1,3}(idx))) == 1);
+                app.ProcessingAlgorithmDropDown.Value = app.ProcessingAlgorithmDropDown.Items{udx};
+                app.Lamp_ProcessingAlgorithm.Color = [0 1 0];
+            end
+            try
+                app.DataUUIDEditField.Value = deblank(ICESh5.Metadata.DataUUID{1});
+                app.UUID = deblank(ICESh5.Metadata.DataUUID{1});
+                app.Lamp_DataUUID.Color = 'g';
+            end
+            try
+                app.DatasetVersionSpinner.Value = str2num(deblank(ICESh5.Metadata.DatasetVersion{1}));
+                app.DatasetVersion = deblank(ICESh5.Metadata.DatasetVersion{1});
+                app.Lamp_DatasetVersion.Color = 'g';
+            end
+            try % CalibrationProcedure must be converted from ICES code to actual information as string
+                A = deblank(ICESh5.Metadata.CalibrationProcedure{1});
+                fileID = fopen('.\libs\CalibrationProcedure.csv');
+                Q = textscan(fileID,'%s %s %s %s %s %s %s %s','delimiter',',');
+                fclose(fileID);
+                ix = strcmp(Q{1,2},A);
+                idx = find(ix~=0);
+                udx = find(strcmp(app.CalibrationProcedureDropDown.Items ,char(Q{1,3}(idx))) == 1);
+                app.CalibrationProcedureDropDown.Value = app.CalibrationProcedureDropDown.Items{udx};
+                app.CalibrationProcedure = deblank(ICESh5.Metadata.CalibrationProcedure{1});
+                app.Lamp_CalibrationProcedure.Color = [0 1 0];
+            end
+            try
+                A = strsplit(ICESh5.Metadata.CalibrationDateTime{1},' ');
+                T = datetime(ICESh5.Metadata.CalibrationDateTime{1},'InputFormat','yyyy-MM-dd HH:mm:ss');
+                app.CalibrationDatetimeDatePicker.Value = datetime(A{1}(1:10),'InputFormat','yyyy-MM-dd');
+                app.TimeEditField_4.Value = A{2}(1:5); clear A;
+                app.CalibrationDate = char(datetime(T,'Format','yyyy-MM-dd HH:mm:ss'));
+                app.Lamp_CalibrationDatetime.Color = [0 1 0]; 
+            end
+            try
+                app.CommentsEditField.Value = ICESh5.Metadata.Comments{1};
+                app.comments = ICESh5.Metadata.Comments{1};
+                app.Lamp_Comments.Color = 'g';
+            end
+            %% Data
+            try
+                app.datetimeindex  =   deblank(ICESh5.Data.DateTime);
+                app.Lamp_DateTime.Color = 'g';
+            end
+            try
+                app.leq{1,1} = ICESh5.Data.LeqMeasurementsOfChannel1;
+                app.LeqMeasurementsPanel.Children(end-(1*2-1)).Color = 'g';
+            end
+            drawnow;
+            figure(app.ICESformatterUIFigure)
+        end
+
+        % Menu selected function: SaveastemplateMenu
+        function SaveastemplateMenuSelected(app, event)
+            %% where
+            [file,path] = uiputfile('*.h5', 'Save as:');
+            drawnow;
+            figure(app.ICESformatterUIFigure);
+            %% Create the dataset:
+            %% Check if lamp is green and add to dset
+            if app.Lamp_Email.Color == [0 1 0]
+                dset.FileInformation.Email = app.Email;
+            end
+            if app.Lamp_CreationDate.Color == [0 1 0]
+                dset.FileInformation.CreationDate = app.CreationDate;
+            end
+            if app.Lamp_StartDate.Color == [0 1 0]
+                dset.FileInformation.StartDate = app.StartDate;
+            end
+            if app.Lamp_EndDate.Color == [0 1 0]
+                dset.FileInformation.EndDate = app.EndDate;
+            end
+            if app.Lamp_Institution.Color == [0 1 0]
+                dset.FileInformation.Institution = app.Institution;
+            end
+            if app.Lamp_Contact.Color == [0 1 0]
+                dset.FileInformation.Contact = app.Contact;
+            end
+            if app.Lamp_CountryCode.Color == [0 1 0]
+                dset.FileInformation.CountryCode = app.CountryCode;
+            end
+            if app.Lamp_StationCode.Color == [0 1 0]
+                dset.FileInformation.StationCode = app.StationCode;
+            end
+            if app.Lamp_HydrophoneType.Color ==[0 1 0]
+                dset.Metadata.HydrophoneType = app.HydrophoneType;
+            end
+            if app.Lamp_HydrophoneSerialNumber.Color == [0 1 0]
+                dset.Metadata.HydrophoneSerialNumber = app.HydrophoneSerialNumber;
+            end
+            if app.Lamp_RecorderType.Color == [0 1 0]
+                dset.Metadata.RecorderType = app.RecorderType;
+            end
+            if app.Lamp_RecorderSerialNumber.Color == [0 1 0]
+                dset.Metadata.RecorderSerialNumber = app.RecorderSerialNumber;
+            end
+            if app.Lamp_MeasurementHeight.Color == [0 1 0]
+                dset.Metadata.MeasurementHeight = app.MeasurementHeight;
+            end
+            if app.Lamp_MeasurementPurpose.Color == [0 1 0]
+                dset.Metadata.MeasurementPurpose = app.MeasurementPurpose;
+            end
+            if app.Lamp_MeasurementSetup.Color == [0 1 0]
+                dset.Metadata.MeasurementSetup = app.MeasurementSetup;
+            end
+            if app.Lamp_RigDesign.Color == [0 1 0]
+                dset.Metadata.RigDesign = app.RigDesign;
+            end
+            if app.Lamp_FrequencyCount.Color == [0 1 0]
+                dset.Metadata.FrequencyCount = app.FrequencyCount;
+            end
+            if app.Lamp_FrequencyIndex.Color == [0 1 0]
+                dset.Metadata.FrequencyIndex = app.fi;
+            end
+            if app.Lamp_FrequencyUnit.Color == [0 1 0]
+                dset.Metadata.FrequencyUnit = 'Hz';
+            end
+            if app.Lamp_ChannelCount.Color == [0 1 0]
+                dset.Metadata.ChannelCount = app.ChannelCount;
+            end
+            if app.Lamp_MeasurementTotalNo.Color == [0 1 0]
+                dset.Metadata.MeasurementTotalNo = app.MeasurementTotalNo;
+            end
+            if app.Lamp_MeasurementUnit.Color == [0 1 0]
+                dset.Metadata.MeasurementUnit = app.MeasurementUnit;
+            end
+            if app.Lamp_AveragingTime.Color == [0 1 0]
+                dset.Metadata.AveragingTime = app.AveragingTime;
+            end
+            if app.Lamp_ProcessingAlgorithm.Color == [0 1 0]
+                dset.Metadata.ProcessingAlgorithm = app.ProcessingAlgorithm;
+            end
+            if app.Lamp_DataUUID. Color == [0 1 0]
+                dset.Metadata.UUID = app.UUID;
+            end
+            if app.Lamp_DatasetVersion.Color == [0 1 0]
+                dset.Metadata.DatasetVersion = app.DatasetVersion;
+            end
+            if app.Lamp_CalibrationProcedure.Color == [0 1 0]
+                dset.Metadata.CalibrationProcedure = app.CalibrationProcedure;
+            end
+            if app.Lamp_CalibrationDatetime.Color == [0 1 0]
+                dset.Metadata.CalibrationDatetime = app.CalibrationDate;
+            end
+            if app.Lamp_Comments.Color == [0 1 0]
+                dset.Metadata.Comments = app.comments;
+            end
+%             if app.Lamp_DateTime == [0 1 0]
+%                 dset.Data.DateTime = app.datetimeindex;
+%             end
+            if app.LeqMeasurementsPanel.Children(end-(1*2-1)).Color == [0 1 0]
+                dset.Data.LeqMeasurementsOfChannel1 = app.leq{1,1};
+            end
+            
+                
+            %% creates and writes data to hdf5 file (file must not exits at time of function call)
+            name = [path file];
+            matlab_write_recursive_hdf5(name, '', dset);
+            if app.Lamp_DateTime == [0 1 0]
+                hdf5write(name,'/Data/DateTime',app.datetimeindex,'WriteMode', 'append');
+            end
+            if length(app.leq)>1
+                for ii=2:length(app.leq)
+                    hdf5write(name,['/Data/LeqMeasurementsOfChannel' num2str(ii)],app.leq{1,ii},'WriteMode', 'append');
+                end
+            end
+            app.saveh5name = name;
+            
+        end
     end
 
     % Component initialization
@@ -1702,15 +2107,21 @@ assignin('base','h5File',dset);
         % Create UIFigure and components
         function createComponents(app)
 
-            % Create UIFigure and hide until all components are created
-            app.UIFigure = uifigure('Visible', 'off');
-            app.UIFigure.Color = [0 0.2314 0.4118];
-            app.UIFigure.Position = [100 100 1078 611];
-            app.UIFigure.Name = 'UI Figure';
+            % Create ICESformatterUIFigure and hide until all components are created
+            app.ICESformatterUIFigure = uifigure('Visible', 'off');
+            app.ICESformatterUIFigure.Color = [0 0.2314 0.4118];
+            app.ICESformatterUIFigure.Position = [400 100 1078 611];
+            app.ICESformatterUIFigure.Name = 'ICES formatter';
+            app.ICESformatterUIFigure.Icon = 'ices.gif';
 
             % Create Menu
-            app.Menu = uimenu(app.UIFigure);
+            app.Menu = uimenu(app.ICESformatterUIFigure);
             app.Menu.Text = 'Menu';
+
+            % Create LoadICESh5fileMenu
+            app.LoadICESh5fileMenu = uimenu(app.Menu);
+            app.LoadICESh5fileMenu.MenuSelectedFcn = createCallbackFcn(app, @LoadICESh5fileMenuSelected, true);
+            app.LoadICESh5fileMenu.Text = 'Load ICES .h5 file';
 
             % Create LoadBSHh5fileMenu
             app.LoadBSHh5fileMenu = uimenu(app.Menu);
@@ -1727,8 +2138,18 @@ assignin('base','h5File',dset);
             app.LoadJOMOPANSh5fileMenu.MenuSelectedFcn = createCallbackFcn(app, @LoadJOMOPANSh5fileMenuSelected, true);
             app.LoadJOMOPANSh5fileMenu.Text = 'Load JOMOPANS .h5 file';
 
+            % Create ICESlogincredentialsMenu
+            app.ICESlogincredentialsMenu = uimenu(app.Menu);
+            app.ICESlogincredentialsMenu.MenuSelectedFcn = createCallbackFcn(app, @ICESlogincredentialsMenuSelected, true);
+            app.ICESlogincredentialsMenu.Text = 'ICES login credentials';
+
+            % Create SaveastemplateMenu
+            app.SaveastemplateMenu = uimenu(app.Menu);
+            app.SaveastemplateMenu.MenuSelectedFcn = createCallbackFcn(app, @SaveastemplateMenuSelected, true);
+            app.SaveastemplateMenu.Text = 'Save as template';
+
             % Create HelpMenu
-            app.HelpMenu = uimenu(app.UIFigure);
+            app.HelpMenu = uimenu(app.ICESformatterUIFigure);
             app.HelpMenu.Text = 'Help';
 
             % Create SeeICEScontinuousnoisedataformatMenu
@@ -1737,7 +2158,7 @@ assignin('base','h5File',dset);
             app.SeeICEScontinuousnoisedataformatMenu.Text = 'See ICES continuous noise data format';
 
             % Create TabGroup
-            app.TabGroup = uitabgroup(app.UIFigure);
+            app.TabGroup = uitabgroup(app.ICESformatterUIFigure);
             app.TabGroup.Position = [10 74 1060 529];
 
             % Create FileInformationTab
@@ -1810,7 +2231,7 @@ assignin('base','h5File',dset);
 
             % Create CountryCodeDropDown
             app.CountryCodeDropDown = uidropdown(app.FileInformationTab);
-            app.CountryCodeDropDown.Items = {'Select ...', 'BE', 'DE', 'DK', 'EE', 'FI', 'GB', 'GB-ENG', 'GB-SCT', 'LT', 'LV', 'NL', 'NO', 'PL', 'RU', 'SE'};
+            app.CountryCodeDropDown.Items = {'Select ...', 'BE', 'DE', 'DK', 'EE', 'FI', 'LT', 'LV', 'NL', 'NO', 'PL', 'RU', 'SCO', 'SE', 'UKE'};
             app.CountryCodeDropDown.ValueChangedFcn = createCallbackFcn(app, @CountryCodeDropDownValueChanged, true);
             app.CountryCodeDropDown.Position = [133 294 100 22];
             app.CountryCodeDropDown.Value = 'Select ...';
@@ -1984,7 +2405,7 @@ assignin('base','h5File',dset);
 
             % Create RecorderTypeDropDown
             app.RecorderTypeDropDown = uidropdown(app.MetadataTab);
-            app.RecorderTypeDropDown.Items = {'Select ...', 'Computer', 'JASCO Amar', 'Loggerhead DSG', 'Loggerhead DSG-ST', 'Loggerhead LS1/LS2', 'Loggerhead Medusa Acoustic Drifter', 'Loggerhead SNAP', 'Multi Electronique - Aural-M2', 'Multi Electronique - µAURAL', 'OceanInstruments SOUNDTRAP 300 HF', 'OceanInstruments SOUNDTRAP 300 STD', 'OceanInstruments SOUNDTRAP 500 HF', 'OceanInstruments SOUNDTRAP 500 STD', 'OceanSonics icListen 200kHz', 'RTSys EASDA14 320', 'RTSys Sylence-LP recorder', 'Wildlife SM2M', 'Wildlife SM2M+', 'Wildlife SM3M', 'Wildlife SM3M+', 'Wildlife SM4M'};
+            app.RecorderTypeDropDown.Items = {'Select ...', 'Computer', 'JASCO Amar', 'Loggerhead DSG', 'Loggerhead DSG-ST', 'Loggerhead LS1/LS2', 'Loggerhead Medusa Acoustic Drifter', 'Loggerhead SNAP', 'OceanInstruments SOUNDTRAP 300 HF', 'OceanInstruments SOUNDTRAP 300 STD', 'OceanInstruments SOUNDTRAP 500 HF', 'OceanInstruments SOUNDTRAP 500 STD', 'OceanSonics icListen 200kHz', 'RTSys EASDA14 320', 'RTSys Sylence-LP recorder', 'Wildlife SM2M', 'Wildlife SM2M+', 'Wildlife SM3M', 'Wildlife SM3M+', 'Wildlife SM4M'};
             app.RecorderTypeDropDown.ValueChangedFcn = createCallbackFcn(app, @RecorderTypeDropDownValueChanged, true);
             app.RecorderTypeDropDown.Position = [239 423 109 22];
             app.RecorderTypeDropDown.Value = 'Select ...';
@@ -2417,32 +2838,32 @@ assignin('base','h5File',dset);
             app.LeqMeasurementsPanel.Position = [23 35 253 401];
 
             % Create WritetoICESh5fileButton
-            app.WritetoICESh5fileButton = uibutton(app.UIFigure, 'push');
+            app.WritetoICESh5fileButton = uibutton(app.ICESformatterUIFigure, 'push');
             app.WritetoICESh5fileButton.ButtonPushedFcn = createCallbackFcn(app, @WritetoICESh5fileButtonPushed, true);
             app.WritetoICESh5fileButton.BackgroundColor = [1 1 1];
-            app.WritetoICESh5fileButton.Position = [204 31 127 22];
+            app.WritetoICESh5fileButton.Position = [150 31 127 22];
             app.WritetoICESh5fileButton.Text = 'Write to ICES .h5 file';
 
             % Create MovealldatatoMATLABworkspaceButton
-            app.MovealldatatoMATLABworkspaceButton = uibutton(app.UIFigure, 'push');
+            app.MovealldatatoMATLABworkspaceButton = uibutton(app.ICESformatterUIFigure, 'push');
             app.MovealldatatoMATLABworkspaceButton.ButtonPushedFcn = createCallbackFcn(app, @MovealldatatoMATLABworkspaceButtonPushed, true);
-            app.MovealldatatoMATLABworkspaceButton.Position = [533 31 212 22];
+            app.MovealldatatoMATLABworkspaceButton.Position = [480 31 212 22];
             app.MovealldatatoMATLABworkspaceButton.Text = 'Move all data to MATLAB workspace';
 
             % Create Viewh5filewithhdfviewButton
-            app.Viewh5filewithhdfviewButton = uibutton(app.UIFigure, 'push');
+            app.Viewh5filewithhdfviewButton = uibutton(app.ICESformatterUIFigure, 'push');
             app.Viewh5filewithhdfviewButton.ButtonPushedFcn = createCallbackFcn(app, @Viewh5filewithhdfviewButtonPushed, true);
-            app.Viewh5filewithhdfviewButton.Position = [358 31 149 22];
+            app.Viewh5filewithhdfviewButton.Position = [304 31 149 22];
             app.Viewh5filewithhdfviewButton.Text = 'View .h5 file with hdfview';
 
             % Create GotoICEScontinuousnoiseregistryButton
-            app.GotoICEScontinuousnoiseregistryButton = uibutton(app.UIFigure, 'push');
+            app.GotoICEScontinuousnoiseregistryButton = uibutton(app.ICESformatterUIFigure, 'push');
             app.GotoICEScontinuousnoiseregistryButton.ButtonPushedFcn = createCallbackFcn(app, @GotoICEScontinuousnoiseregistryButtonPushed, true);
-            app.GotoICEScontinuousnoiseregistryButton.Position = [771 31 213 22];
+            app.GotoICEScontinuousnoiseregistryButton.Position = [719 31 213 22];
             app.GotoICEScontinuousnoiseregistryButton.Text = 'Go to ICES continuous noise registry';
 
             % Create BSH2021Label
-            app.BSH2021Label = uilabel(app.UIFigure);
+            app.BSH2021Label = uilabel(app.ICESformatterUIFigure);
             app.BSH2021Label.FontName = 'Comic Sans MS';
             app.BSH2021Label.FontSize = 8;
             app.BSH2021Label.FontColor = [1 1 1];
@@ -2450,14 +2871,20 @@ assignin('base','h5File',dset);
             app.BSH2021Label.Text = 'BSH, 2021';
 
             % Create ResetButton
-            app.ResetButton = uibutton(app.UIFigure, 'push');
+            app.ResetButton = uibutton(app.ICESformatterUIFigure, 'push');
             app.ResetButton.ButtonPushedFcn = createCallbackFcn(app, @ResetButtonPushed, true);
             app.ResetButton.BackgroundColor = [0.949 0.6471 0.6471];
-            app.ResetButton.Position = [79 31 100 22];
+            app.ResetButton.Position = [22 31 100 22];
             app.ResetButton.Text = 'Reset';
 
+            % Create UploadfilesButton
+            app.UploadfilesButton = uibutton(app.ICESformatterUIFigure, 'push');
+            app.UploadfilesButton.ButtonPushedFcn = createCallbackFcn(app, @UploadfilesButtonPushed, true);
+            app.UploadfilesButton.Position = [959 31 100 22];
+            app.UploadfilesButton.Text = 'Upload file(s)';
+
             % Show the figure after all components are created
-            app.UIFigure.Visible = 'on';
+            app.ICESformatterUIFigure.Visible = 'on';
         end
     end
 
@@ -2465,13 +2892,13 @@ assignin('base','h5File',dset);
     methods (Access = public)
 
         % Construct app
-        function app = format3000_exported
+        function app = ICES_formatter3000
 
             % Create UIFigure and components
             createComponents(app)
 
             % Register the app with App Designer
-            registerApp(app, app.UIFigure)
+            registerApp(app, app.ICESformatterUIFigure)
 
             % Execute the startup function
             runStartupFcn(app, @startupFcn)
@@ -2485,7 +2912,7 @@ assignin('base','h5File',dset);
         function delete(app)
 
             % Delete UIFigure when app is deleted
-            delete(app.UIFigure)
+            delete(app.ICESformatterUIFigure)
         end
     end
 end

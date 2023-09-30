@@ -11,7 +11,7 @@ S = webread(url);
 idx = find(strcmp({S.stationCode}, '13559')==1);
 for ii = 1:length(idx)
         filename = S(idx(ii)).fileName;
-        url = ['https://underwaternoise.ices.dk/continuous/api/DownloadFile/' num2str(S(idx(ii)).tblUploadID)]
+        url = ['https://underwaternoise.ices.dk/continuous/api/DownloadFile/' num2str(S(idx(ii)).tblUploadID)];
         disp(['Downloading ' filename ' ... - file ' num2str(ii) ' of ' num2str(length(idx)) '.'])
         websave(filename,url,weboptions('Timeout',60)); %set Timeout higher in case you have any difficulties
 end
