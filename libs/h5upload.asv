@@ -18,16 +18,11 @@ function h5upload(User,Password,filenameS,pathS)
     jwt = response.result.token;
     
 %% 2. Upload file(s)
-if class(filenameS) == 'char'
-    X = 1;
-else
-    X = length(filenameS);
-end
-    for ii = 1:X
+    for ii = 1:length(filenameS)
         %% Upload
         URL = 'https://underwaternoise.ices.dk/continuous/api/UploadFile';
         %  Create file provider
-        if class(filenameS) == "char"
+        if length(filenameS) == 1
             fileProvider = matlab.net.http.io.FileProvider([pathS filenameS]);
         else
             fileProvider = matlab.net.http.io.FileProvider([pathS filenameS{ii}]);
@@ -47,5 +42,5 @@ end
         % Get result
         disp(resp.Body.Data)
     end
-    f = msgbox([num2str(X) ' h5 files have been uploaded to the ICES continuous noise database!'],"Upload successfull");
+    f = msgbox([num2str(length(filenameS)) ' h5 files have been uploaded to the ICES continuous noise database!'],"Upload successfull");
 end
