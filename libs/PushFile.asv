@@ -16,4 +16,34 @@ jwt = response.result.token;
 url = ['https://underwaternoise.ices.dk/continuous/api/pushFileDatabase/' num2str(id)];
 options = weboptions('KeyName','Authorization','KeyValue',['Bearer ' jwt]);
 res = webwrite(url,options);
+
+
+
+%% Upload
+        URL = 'https://underwaternoise.ices.dk/continuous/api/UploadFile';
+        %  Create file provider
+        if class(filenameS) == "char"
+            fileProvider = matlab.net.http.io.FileProvider([pathS filenameS]);
+        else
+            fileProvider = matlab.net.http.io.FileProvider([pathS filenameS{ii}]);
+        end
+        % Set media type to multipart/form-data 
+        mediaType = matlab.net.http.MediaType('multipart/form-data');
+        % Set HTTP header
+        header = matlab.net.http.HeaderField('Authorization', ['Bearer ' jwt],'Accept','multipart/form-data');
+        % Crete multipart form provider
+        formProvider = matlab.net.http.io.MultipartFormProvider('fileToUpload', fileProvider);
+        % Create HTTP request message
+        request = matlab.net.http.RequestMessage(matlab.net.http.RequestMethod.POST, header, formProvider);
+        % Set HTTP options and enable SavePayload for debugging
+        options =  matlab.net.http.HTTPOptions('SavePayload', true); 
+        % Send HTTP request
+        [resp,a,req] = request.send(URL, options);
+        % Get result
+        disp(resp.Body.Data)
+
+
+
+
+
 end
