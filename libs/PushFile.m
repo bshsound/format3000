@@ -1,4 +1,4 @@
-function res = PushFile(id,User,Password)
+function PushFile(id,User,Password)
 %% 1. Create Token
 url = 'https://underwaternoise.ices.dk/continuous/api/token';
 username = User;
