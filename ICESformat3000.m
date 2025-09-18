@@ -1429,27 +1429,49 @@ assignin('base','h5File',dset);
 %                 F = load(filename); %bug reported by Felicity when using
 %                 load
                   F = readmatrix(filename);
-                      if size(F,1) < 3 || size(F,2) < 2 || all(isnan(F(1,2:end)))
-                        error('PAMCSV:BadShape','Unexpected CSV shape/content');
-                      end
+                  if size(F,1) < 3 || size(F,2) < 2 || all(isnan(F(1,2:end)))
+                    error('PAMCSV:BadShape','Unexpected CSV shape/content');
+                  end
             catch ME
                 if isequal(ME.identifier,'MATLAB:nomem')
                     errordlg("Size of PAMGuide's .output .csv exceeds your machine's RAM. Please type 'help memory' for your options or reduce time period of .csv file.")
                 end
                 return
             end
+            
+                % --- 1) Frequenzen ZUERST lesen ---
+            f = double(F(1,2:end));
+            app.fi = f;
+            f_count = uint64(numel(f));
+            app.FrequencyCount = f_count;
+            app.FrequencyCountSpinner.Value = double(f_count);
+            app.Lamp_FrequencyIndex.Color = 'g';
+            app.Lamp_FrequencyCount.Color = 'g';
+            
+            
+            t_num = F(2:end,1);
+            valid = isfinite(t_num);
+            t_dt  = datetime(t_num(valid),'ConvertFrom','datenum','Format','yyyy-MM-dd HH:mm:ss'); % ggf. TimeZone hinzufügen
+            t     = cellstr(t_dt);
+            L     = double(F(2:end,2:end));
+            L     = L(valid,:);                % Pegel auf gültige Zeitzeilen trimmen
+            
+            % optional: Orientierungs-Wache (nur falls mal transponiert)
+            if size(L,1) == numel(f) && size(L,2) > size(L,1)
+                L = L.';                       % sicherstellen: Zeilen = Messungen, Spalten = Frequenzen
+            end
             %% datetime
-            t=cellstr(datetime(F(2:end,1),'ConvertFrom','datenum','Format','yyyy-MM-dd HH:mm:ss'));
+%             t=cellstr(datetime(F(2:end,1),'ConvertFrom','datenum','Format','yyyy-MM-dd HH:mm:ss'));
             app.Lamp_DateTime.Color = 'g';
             app.datetimeindex = t;
             %% frequency index
-            f=double(F(1,2:end));
-            app.Lamp_FrequencyIndex.Color = 'g';
-            app.fi = f;
-            f_count = cast(length(f),'uint64');
-            app.FrequencyCount = f_count;
-            app.FrequencyCountSpinner.Value = double(f_count);
-            app.Lamp_FrequencyCount.Color = 'g';
+%             f=double(F(1,2:end));
+%             app.Lamp_FrequencyIndex.Color = 'g';
+%             app.fi = f;
+%             f_count = cast(length(f),'uint64');
+%             app.FrequencyCount = f_count;
+%             app.FrequencyCountSpinner.Value = double(f_count);
+%             app.Lamp_FrequencyCount.Color = 'g';
             %% channel
             ch_count = cast(1,'uint64');
             app.ChannelCountSpinner.Value = double(1);
@@ -1459,14 +1481,19 @@ assignin('base','h5File',dset);
             app.New.button{1,1} = uibutton(app.LeqMeasurementsPanel,'push','Text',['Leq Measurements of Channel 1'],'Position',[50,380-23, 200, 22]);
             app.New.lamp{1,1} = uilamp(app.LeqMeasurementsPanel,"Color",'g',"Position",[10,380-23, 20, 20]);
             app.New.button{1,1}.ButtonPushedFcn = @app.leqbuttondown;
-            app.leq{1,1} = double(F(2:end,2:end));
+%             app.leq{1,1} = double(F(2:end,2:end));
+            app.leq{1,1} = L;
             %% Frequency Unit
             app.fu = 'Hz';
             app.Lamp_FrequencyUnit.Color = 'g';
             app.FrequencyUnitDropDown.Value = 'Hertz';
             %% Measurements Total Number
-            app.MeasurementTotalNoEditField.Value = double(size(app.leq{1,1},1));
-            app.MeasurementTotalNo = cast(size(app.leq{1,1},1),'uint64');
+            Nt = numel(t);                      % robust & eindeutig
+            app.MeasurementTotalNoEditField.Value = double(Nt);
+            app.MeasurementTotalNo                 = uint64(Nt);
+
+%             app.MeasurementTotalNoEditField.Value = double(size(app.leq{1,1},1));
+%             app.MeasurementTotalNo = cast(size(app.leq{1,1},1),'uint64');
             app.Lamp_MeasurementTotalNo.Color = 'g';
             %% Measurement Unit
             app.MeasurementUnitDropDown.Value = 'Sound pressure level - dB re 1µPa';
