@@ -12,131 +12,131 @@ classdef ICESformat3000 < matlab.apps.AppBase
         SaveastemplateMenu              matlab.ui.container.Menu
         HelpMenu                        matlab.ui.container.Menu
         SeeICEScontinuousnoisedataformatMenu  matlab.ui.container.Menu
-        UploadfilesButton               matlab.ui.control.Button
-        ResetButton                     matlab.ui.control.Button
-        BSH2021Label                    matlab.ui.control.Label
-        GotoICEScontinuousnoiseregistryButton  matlab.ui.control.Button
-        Viewh5filewithhdfviewButton     matlab.ui.control.Button
-        MovealldatatoMATLABworkspaceButton  matlab.ui.control.Button
-        WritetoICESh5fileButton         matlab.ui.control.Button
         TabGroup                        matlab.ui.container.TabGroup
         FileInformationTab              matlab.ui.container.Tab
-        SelectDropDown_StationCode      matlab.ui.control.DropDown
-        SelectDropDown_2Label           matlab.ui.control.Label
-        StationCodeEditField            matlab.ui.control.EditField
-        StationCodeEditFieldLabel       matlab.ui.control.Label
-        SelectDropDown                  matlab.ui.control.DropDown
-        SelectDropDownLabel             matlab.ui.control.Label
-        Lamp_StationCode                matlab.ui.control.Lamp
-        Lamp_CountryCode                matlab.ui.control.Lamp
-        Lamp_Contact                    matlab.ui.control.Lamp
-        Lamp_Institution                matlab.ui.control.Lamp
-        Lamp_EndDate                    matlab.ui.control.Lamp
-        Lamp_StartDate                  matlab.ui.control.Lamp
-        Lamp_CreationDate               matlab.ui.control.Lamp
-        Lamp_Email                      matlab.ui.control.Lamp
-        InstitutionEditField            matlab.ui.control.EditField
-        InstitutionEditFieldLabel       matlab.ui.control.Label
-        TimeEditField_3                 matlab.ui.control.EditField
-        TimeEditField_3Label            matlab.ui.control.Label
-        TimeEditField_2                 matlab.ui.control.EditField
-        TimeEditField_2Label            matlab.ui.control.Label
-        TimeEditField                   matlab.ui.control.EditField
-        TimeEditFieldLabel              matlab.ui.control.Label
-        CountryCodeDropDown             matlab.ui.control.DropDown
-        CountryCodeDropDownLabel        matlab.ui.control.Label
-        ContactEditField                matlab.ui.control.EditField
-        ContactEditFieldLabel           matlab.ui.control.Label
-        EndDateDatePicker               matlab.ui.control.DatePicker
-        EndDateDatePickerLabel          matlab.ui.control.Label
-        StartDateDatePicker             matlab.ui.control.DatePicker
-        StartDateDatePickerLabel        matlab.ui.control.Label
-        CreationDateDatePicker          matlab.ui.control.DatePicker
-        CreationDateDatePickerLabel     matlab.ui.control.Label
-        EmailEditField                  matlab.ui.control.EditField
         EmailEditFieldLabel             matlab.ui.control.Label
+        EmailEditField                  matlab.ui.control.EditField
+        CreationDateDatePickerLabel     matlab.ui.control.Label
+        CreationDateDatePicker          matlab.ui.control.DatePicker
+        StartDateDatePickerLabel        matlab.ui.control.Label
+        StartDateDatePicker             matlab.ui.control.DatePicker
+        EndDateDatePickerLabel          matlab.ui.control.Label
+        EndDateDatePicker               matlab.ui.control.DatePicker
+        ContactEditFieldLabel           matlab.ui.control.Label
+        ContactEditField                matlab.ui.control.EditField
+        CountryCodeDropDownLabel        matlab.ui.control.Label
+        CountryCodeDropDown             matlab.ui.control.DropDown
+        TimeEditFieldLabel              matlab.ui.control.Label
+        TimeEditField                   matlab.ui.control.EditField
+        TimeEditField_2Label            matlab.ui.control.Label
+        TimeEditField_2                 matlab.ui.control.EditField
+        TimeEditField_3Label            matlab.ui.control.Label
+        TimeEditField_3                 matlab.ui.control.EditField
+        InstitutionEditFieldLabel       matlab.ui.control.Label
+        InstitutionEditField            matlab.ui.control.EditField
+        Lamp_Email                      matlab.ui.control.Lamp
+        Lamp_CreationDate               matlab.ui.control.Lamp
+        Lamp_StartDate                  matlab.ui.control.Lamp
+        Lamp_EndDate                    matlab.ui.control.Lamp
+        Lamp_Institution                matlab.ui.control.Lamp
+        Lamp_Contact                    matlab.ui.control.Lamp
+        Lamp_CountryCode                matlab.ui.control.Lamp
+        Lamp_StationCode                matlab.ui.control.Lamp
+        SelectDropDownLabel             matlab.ui.control.Label
+        SelectDropDown                  matlab.ui.control.DropDown
+        StationCodeEditFieldLabel       matlab.ui.control.Label
+        StationCodeEditField            matlab.ui.control.EditField
+        SelectDropDown_2Label           matlab.ui.control.Label
+        SelectDropDown_StationCode      matlab.ui.control.DropDown
         MetadataTab                     matlab.ui.container.Tab
-        fromfileButton                  matlab.ui.control.Button
-        fromfileButton_2                matlab.ui.control.Button
-        CommentsEditField               matlab.ui.control.TextArea
-        CommentsTextAreaLabel           matlab.ui.control.Label
-        Lamp_Comments                   matlab.ui.control.Lamp
-        TimeEditField_4                 matlab.ui.control.EditField
-        TimeEditField_4Label            matlab.ui.control.Label
-        CalibrationDatetimeDatePicker   matlab.ui.control.DatePicker
-        CalibrationDatetimeDatePickerLabel  matlab.ui.control.Label
-        Lamp_CalibrationDatetime        matlab.ui.control.Lamp
-        Lamp_CalibrationProcedure       matlab.ui.control.Lamp
-        Lamp_DatasetVersion             matlab.ui.control.Lamp
-        Lamp_DataUUID                   matlab.ui.control.Lamp
-        Lamp_ProcessingAlgorithm        matlab.ui.control.Lamp
-        Lamp_AveragingTime              matlab.ui.control.Lamp
-        Lamp_MeasurementUnit            matlab.ui.control.Lamp
-        Lamp_MeasurementTotalNo         matlab.ui.control.Lamp
-        MeasurementTotalNoEditField     matlab.ui.control.NumericEditField
-        MeasurementTotalNoEditFieldLabel  matlab.ui.control.Label
-        Lamp_ChannelCount               matlab.ui.control.Lamp
-        Lamp_FrequencyUnit              matlab.ui.control.Lamp
-        FrequencyIndexPanel             matlab.ui.container.Panel
-        fileButton                      matlab.ui.control.Button
-        LoadFrequencyBandsfromCheckBox  matlab.ui.control.CheckBox
-        FrequencyIndexEditField         matlab.ui.control.EditField
-        HighestTOBDropDown              matlab.ui.control.DropDown
-        HighestTOBDropDownLabel         matlab.ui.control.Label
-        LowestTOBDropDown               matlab.ui.control.DropDown
-        LowestTOBDropDownLabel          matlab.ui.control.Label
-        consecutiveThirdOctaveBandsCheckBox  matlab.ui.control.CheckBox
-        individualFrequencyBandsCheckBox  matlab.ui.control.CheckBox
-        Lamp_FrequencyIndex             matlab.ui.control.Lamp
-        Lamp_FrequencyCount             matlab.ui.control.Lamp
-        Lamp_RigDesign                  matlab.ui.control.Lamp
-        Lamp_MeasurementSetup           matlab.ui.control.Lamp
-        Lamp_MeasurementPurpose         matlab.ui.control.Lamp
-        Lamp_MeasurementHeight          matlab.ui.control.Lamp
-        Lamp_RecorderSerialNumber       matlab.ui.control.Lamp
-        Lamp_RecorderType               matlab.ui.control.Lamp
-        Lamp_HydrophoneSerialNumber     matlab.ui.control.Lamp
-        Lamp_HydrophoneType             matlab.ui.control.Lamp
-        CalibrationProcedureDropDown    matlab.ui.control.DropDown
-        CalibrationProcedureDropDownLabel  matlab.ui.control.Label
-        DatasetVersionSpinner           matlab.ui.control.Spinner
-        DatasetVersionSpinnerLabel      matlab.ui.control.Label
-        DataUUIDEditField               matlab.ui.control.EditField
-        DataUUIDEditFieldLabel          matlab.ui.control.Label
-        ProcessingAlgorithmDropDown     matlab.ui.control.DropDown
-        ProcessingAlgorithmDropDownLabel  matlab.ui.control.Label
-        AveragingTimeSpinner            matlab.ui.control.Spinner
-        AveragingTimeSpinnerLabel       matlab.ui.control.Label
-        MeasurementUnitDropDown         matlab.ui.control.DropDown
-        MeasurementUnitDropDownLabel    matlab.ui.control.Label
-        ChannelCountSpinner             matlab.ui.control.Spinner
-        ChannelCountSpinnerLabel        matlab.ui.control.Label
-        FrequencyUnitDropDown           matlab.ui.control.DropDown
-        FrequencyUnitDropDownLabel      matlab.ui.control.Label
-        FrequencyCountSpinner           matlab.ui.control.Spinner
-        FrequencyCountSpinnerLabel      matlab.ui.control.Label
-        RigDesignDropDown               matlab.ui.control.DropDown
-        RigDesignDropDownLabel          matlab.ui.control.Label
-        MeasurementSetupDropDown        matlab.ui.control.DropDown
-        MeasurementSetupDropDownLabel   matlab.ui.control.Label
-        MeasurementPurposeDropDown      matlab.ui.control.DropDown
-        MeasurementPurposeDropDownLabel  matlab.ui.control.Label
-        MeasurementHeightEditField      matlab.ui.control.EditField
-        MeasurementHeightEditFieldLabel  matlab.ui.control.Label
-        RecorderSerialNumberEditField   matlab.ui.control.EditField
-        RecorderSerialNumberEditFieldLabel  matlab.ui.control.Label
-        RecorderTypeDropDown            matlab.ui.control.DropDown
-        RecorderTypeDropDownLabel       matlab.ui.control.Label
-        HydrophoneSerialNumberEditField  matlab.ui.control.EditField
-        HydrophoneSerialNumberEditFieldLabel  matlab.ui.control.Label
-        HydrophoneTypeDropDown          matlab.ui.control.DropDown
-        HydrophoneTypeDropDownLabel     matlab.ui.control.Label
         CreateUUIDButton                matlab.ui.control.Button
+        HydrophoneTypeDropDownLabel     matlab.ui.control.Label
+        HydrophoneTypeDropDown          matlab.ui.control.DropDown
+        HydrophoneSerialNumberEditFieldLabel  matlab.ui.control.Label
+        HydrophoneSerialNumberEditField  matlab.ui.control.EditField
+        RecorderTypeDropDownLabel       matlab.ui.control.Label
+        RecorderTypeDropDown            matlab.ui.control.DropDown
+        RecorderSerialNumberEditFieldLabel  matlab.ui.control.Label
+        RecorderSerialNumberEditField   matlab.ui.control.EditField
+        MeasurementHeightEditFieldLabel  matlab.ui.control.Label
+        MeasurementHeightEditField      matlab.ui.control.EditField
+        MeasurementPurposeDropDownLabel  matlab.ui.control.Label
+        MeasurementPurposeDropDown      matlab.ui.control.DropDown
+        MeasurementSetupDropDownLabel   matlab.ui.control.Label
+        MeasurementSetupDropDown        matlab.ui.control.DropDown
+        RigDesignDropDownLabel          matlab.ui.control.Label
+        RigDesignDropDown               matlab.ui.control.DropDown
+        FrequencyCountSpinnerLabel      matlab.ui.control.Label
+        FrequencyCountSpinner           matlab.ui.control.Spinner
+        FrequencyUnitDropDownLabel      matlab.ui.control.Label
+        FrequencyUnitDropDown           matlab.ui.control.DropDown
+        ChannelCountSpinnerLabel        matlab.ui.control.Label
+        ChannelCountSpinner             matlab.ui.control.Spinner
+        MeasurementUnitDropDownLabel    matlab.ui.control.Label
+        MeasurementUnitDropDown         matlab.ui.control.DropDown
+        AveragingTimeSpinnerLabel       matlab.ui.control.Label
+        AveragingTimeSpinner            matlab.ui.control.Spinner
+        ProcessingAlgorithmDropDownLabel  matlab.ui.control.Label
+        ProcessingAlgorithmDropDown     matlab.ui.control.DropDown
+        DataUUIDEditFieldLabel          matlab.ui.control.Label
+        DataUUIDEditField               matlab.ui.control.EditField
+        DatasetVersionSpinnerLabel      matlab.ui.control.Label
+        DatasetVersionSpinner           matlab.ui.control.Spinner
+        CalibrationProcedureDropDownLabel  matlab.ui.control.Label
+        CalibrationProcedureDropDown    matlab.ui.control.DropDown
+        Lamp_HydrophoneType             matlab.ui.control.Lamp
+        Lamp_HydrophoneSerialNumber     matlab.ui.control.Lamp
+        Lamp_RecorderType               matlab.ui.control.Lamp
+        Lamp_RecorderSerialNumber       matlab.ui.control.Lamp
+        Lamp_MeasurementHeight          matlab.ui.control.Lamp
+        Lamp_MeasurementPurpose         matlab.ui.control.Lamp
+        Lamp_MeasurementSetup           matlab.ui.control.Lamp
+        Lamp_RigDesign                  matlab.ui.control.Lamp
+        Lamp_FrequencyCount             matlab.ui.control.Lamp
+        Lamp_FrequencyIndex             matlab.ui.control.Lamp
+        FrequencyIndexPanel             matlab.ui.container.Panel
+        individualFrequencyBandsCheckBox  matlab.ui.control.CheckBox
+        consecutiveThirdOctaveBandsCheckBox  matlab.ui.control.CheckBox
+        LowestTOBDropDownLabel          matlab.ui.control.Label
+        LowestTOBDropDown               matlab.ui.control.DropDown
+        HighestTOBDropDownLabel         matlab.ui.control.Label
+        HighestTOBDropDown              matlab.ui.control.DropDown
+        FrequencyIndexEditField         matlab.ui.control.EditField
+        LoadFrequencyBandsfromCheckBox  matlab.ui.control.CheckBox
+        fileButton                      matlab.ui.control.Button
+        Lamp_FrequencyUnit              matlab.ui.control.Lamp
+        Lamp_ChannelCount               matlab.ui.control.Lamp
+        MeasurementTotalNoEditFieldLabel  matlab.ui.control.Label
+        MeasurementTotalNoEditField     matlab.ui.control.NumericEditField
+        Lamp_MeasurementTotalNo         matlab.ui.control.Lamp
+        Lamp_MeasurementUnit            matlab.ui.control.Lamp
+        Lamp_AveragingTime              matlab.ui.control.Lamp
+        Lamp_ProcessingAlgorithm        matlab.ui.control.Lamp
+        Lamp_DataUUID                   matlab.ui.control.Lamp
+        Lamp_DatasetVersion             matlab.ui.control.Lamp
+        Lamp_CalibrationProcedure       matlab.ui.control.Lamp
+        Lamp_CalibrationDatetime        matlab.ui.control.Lamp
+        CalibrationDatetimeDatePickerLabel  matlab.ui.control.Label
+        CalibrationDatetimeDatePicker   matlab.ui.control.DatePicker
+        TimeEditField_4Label            matlab.ui.control.Label
+        TimeEditField_4                 matlab.ui.control.EditField
+        Lamp_Comments                   matlab.ui.control.Lamp
+        CommentsTextAreaLabel           matlab.ui.control.Label
+        CommentsEditField               matlab.ui.control.TextArea
+        fromfileButton_2                matlab.ui.control.Button
+        fromfileButton                  matlab.ui.control.Button
         DataTab                         matlab.ui.container.Tab
-        LeqMeasurementsPanel            matlab.ui.container.Panel
-        Lamp_DateTime                   matlab.ui.control.Lamp
-        DateTimeLabel                   matlab.ui.control.Label
         SelectDatetimeVectorButton      matlab.ui.control.Button
+        DateTimeLabel                   matlab.ui.control.Label
+        Lamp_DateTime                   matlab.ui.control.Lamp
+        LeqMeasurementsPanel            matlab.ui.container.Panel
+        WritetoICESh5fileButton         matlab.ui.control.Button
+        MovealldatatoMATLABworkspaceButton  matlab.ui.control.Button
+        Viewh5filewithhdfviewButton     matlab.ui.control.Button
+        GotoICEScontinuousnoiseregistryButton  matlab.ui.control.Button
+        BSH2021Label                    matlab.ui.control.Label
+        ResetButton                     matlab.ui.control.Button
+        UploadfilesButton               matlab.ui.control.Button
     end
 
     
@@ -639,7 +639,8 @@ classdef ICESformat3000 < matlab.apps.AppBase
             app.Lamp_FrequencyIndex.Color = 'g';
         end
 
-        % Value changed function: consecutiveThirdOctaveBandsCheckBox
+        % Value changed function: 
+        % consecutiveThirdOctaveBandsCheckBox
         function consecutiveThirdOctaveBandsCheckBoxValueChanged(app, event)
             value = app.consecutiveThirdOctaveBandsCheckBox.Value;
             if value == 1
@@ -1142,6 +1143,10 @@ end
             drawnow;
             figure(app.ICESformatterUIFigure);
             %% Create the dataset:
+            if size(app.leq{1,1},1)>size(app.leq{1,1},2)
+                TM = app.leq{1,1};
+                app.leq{1,1} = TM';
+            end
             
 dset = struct(...
     'FileInformation', struct( ...
@@ -1183,11 +1188,11 @@ name = [path file];
 matlab_write_recursive_hdf5(name, '', dset);
 hdf5write(name,'/Data/DateTime',app.datetimeindex,'WriteMode', 'append');
 
-if length(app.leq)>1
-    for ii=2:length(app.leq)
-        hdf5write(name,['/Data/LeqMeasurementsOfChannel' num2str(ii)],app.leq{1,ii},'WriteMode', 'append');
-    end
-end
+% if length(app.leq)>1
+%     for ii=2:length(app.leq)
+%         hdf5write(name,['/Data/LeqMeasurementsOfChannel' num2str(ii)],app.leq{1,ii},'WriteMode', 'append');
+%     end
+% end
 app.saveh5name = name;
 
 
@@ -1249,7 +1254,8 @@ end
 assignin('base','h5File',dset);
         end
 
-        % Button pushed function: GotoICEScontinuousnoiseregistryButton
+        % Button pushed function: 
+        % GotoICEScontinuousnoiseregistryButton
         function GotoICEScontinuousnoiseregistryButtonPushed(app, event)
             dos('explorer https://underwaternoise.ices.dk/continuous/manage/'); %Explorer
         end
@@ -1263,7 +1269,8 @@ assignin('base','h5File',dset);
             end
         end
 
-        % Menu selected function: SeeICEScontinuousnoisedataformatMenu
+        % Menu selected function: 
+        % SeeICEScontinuousnoisedataformatMenu
         function SeeICEScontinuousnoisedataformatMenuSelected(app, event)
             winopen('libs\ICES_format.pdf');
         end
@@ -1419,7 +1426,12 @@ assignin('base','h5File',dset);
             figure(app.ICESformatterUIFigure)
             filename = [path file];
             try
-                F = load(filename);
+%                 F = load(filename); %bug reported by Felicity when using
+%                 load
+                  F = readmatrix(filename);
+                      if size(F,1) < 3 || size(F,2) < 2 || all(isnan(F(1,2:end)))
+                        error('PAMCSV:BadShape','Unexpected CSV shape/content');
+                      end
             catch ME
                 if isequal(ME.identifier,'MATLAB:nomem')
                     errordlg("Size of PAMGuide's .output .csv exceeds your machine's RAM. Please type 'help memory' for your options or reduce time period of .csv file.")
@@ -1579,9 +1591,9 @@ assignin('base','h5File',dset);
             app.Lamp_ChannelCount.Color = 'g';
             %% Measurements Total Number
             app.leq{1,1} = h5read(filename,'/dataset_ambient_noise/measurement_data/leq_spectro_temporal_values');
-%             if ~isequal(size(app.leq{1,1},2),app.FrequencyCount)
-%                 app.leq{1,1}=app.leq{1,1}';
-%             end
+            if ~isequal(size(app.leq{1,1},1),app.FrequencyCount)
+                app.leq{1,1}=app.leq{1,1}';
+            end
             app.MeasurementTotalNoEditField.Value = double(size(app.leq{1,1},2));
             app.MeasurementTotalNo = cast(size(app.leq{1,1},2),'uint64');
             app.Lamp_MeasurementTotalNo.Color = 'g';
@@ -1973,6 +1985,11 @@ assignin('base','h5File',dset);
             end
             try
                 app.leq{1,1} = ICESh5.Data.LeqMeasurementsOfChannel1;
+                if ~isempty(app.leq{1,1})
+                    app.New.button{1,1} = uibutton(app.LeqMeasurementsPanel,'push','Text',['Leq Measurements of Channel 1'],'Position',[50,380-23, 200, 22]);
+                    app.New.lamp{1,1} = uilamp(app.LeqMeasurementsPanel,"Color",'g',"Position",[10,380-23, 20, 20]);
+                    app.New.button{1,1}.ButtonPushedFcn = @app.leqbuttondown;
+                end
                 app.LeqMeasurementsPanel.Children(end-(1*2-1)).Color = 'g';
             end
             drawnow;
@@ -2228,7 +2245,7 @@ assignin('base','h5File',dset);
 
             % Create CountryCodeDropDown
             app.CountryCodeDropDown = uidropdown(app.FileInformationTab);
-            app.CountryCodeDropDown.Items = {'Select ...', 'BE', 'DE', 'DK', 'EE', 'FI', 'LT', 'LV', 'NL', 'NO', 'PL', 'RU', 'SCO', 'SE', 'UKE'};
+            app.CountryCodeDropDown.Items = {'Select ...', 'BE', 'DE', 'DK', 'EE', 'FI', 'LT', 'LV', 'NL', 'NO', 'PL', 'RU', 'GB-SCT', 'SE', 'UKE'};
             app.CountryCodeDropDown.ValueChangedFcn = createCallbackFcn(app, @CountryCodeDropDownValueChanged, true);
             app.CountryCodeDropDown.Position = [133 294 100 22];
             app.CountryCodeDropDown.Value = 'Select ...';
