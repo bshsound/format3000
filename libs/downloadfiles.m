@@ -9,13 +9,18 @@ for ii = 1:length(selection) % loop through selected stations
         url = ['https://underwaternoise.ices.dk/continuous/api/DownloadFile/' num2str(uids{jj})];
         %% rename filename to .zip file
         filename = filenames{jj};
-        filename = filename(1:end-3);
-        filename = [filename '.zip'];
+
         %% concatenate outputpath and filename
         target = [dname '\' filename];
         %% save .zip file from ICES continuous noise database
-        websave(target,url,weboptions('Timeout',60)); %set Timeout higher in case you have any difficulties 
-%         %% unzip
+%         websave(target,url,weboptions('Timeout',60)); %set Timeout higher in case you have any difficulties      
+            opts = weboptions('Timeout', 300);
+            try
+                websave(fullfile(dname, filename), url, opts);
+            catch ME
+                fprintf('Download failed for %s (ID=%s): %s\n', filename, num2str(uids{jj}), ME.message);
+            end
+%% unzip
 %         prefixed_filename = gunzip(target,[dname '\']);
 %         %% rename unzipped h5 file
 %         ix = strfind(prefixed_filename{2},'\');

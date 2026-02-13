@@ -77,33 +77,45 @@ if isempty(depl)
 end
 
 for ii = 1:length(depl)
-        start = datetime(S(depl(ii)).startDate,'InputFormat',['yyyy-MM-dd''T''HH:mm:SS']);
-        ende = datetime(S(depl(ii)).endDate,'InputFormat',['yyyy-MM-dd''T''HH:mm:SS']);
+        start = parseICESdt(S(depl(ii)).startDate);
+        ende  = parseICESdt(S(depl(ii)).endDate);
+
+        % alles auf Tagesauflösung ziehen (wichtig!)
         start = dateshift(start, 'start', 'day');
-        ende = dateshift(ende,'start','day');
-        % Check if times overlap with definded start and end limits
-%         if ende >= start_time && ende <= end_time
-%             status = 1;
-%         elseif start >= start_time && ende <= end_time
-%             status = 1;
-%         elseif start <= start_time && ende >= end_time
-%             status = 1;
-%         else
-%             status = 0;
-%         end
-        overlap = intersect([start:ende],[start_time:end_time]);
-        if ~isempty(overlap)
+        ende  = dateshift(ende,  'start', 'day');
+
+        st = dateshift(start_time, 'start', 'day');
+        en = dateshift(end_time,   'start', 'day');
+
+        % Overlap-Check robust (ohne intersect-Probleme)
+        if ende >= st && start <= en
             status = 1;
+            overlapStart = max(start, st);
+            overlapEnd   = min(ende,  en);
+            overlap = overlapStart:caldays(1):overlapEnd;
         else
             status = 0;
+            overlap = [];
         end
+
 
         if status ==1
             ad = ad+1;
             available_data{ad}.key = num2str(SubStats(st));
             available_data{ad}.station_name = All(idx(st)).description;
             available_data{ad}.filename = S(depl(ii)).fileName;
-            available_data{ad}.uploadid = S(depl(ii)).tblUploadID;
+            % --- robust file id selection (preferred) --- added am
+            % 13.02.2026, weil ICES ab irgendwann keine accession IDs mehr
+            % vergibt
+            fileId = [];
+            if isfield(S(depl(ii)), 'tblUploadID') && ~isempty(S(depl(ii)).tblUploadID)
+                fileId = S(depl(ii)).tblUploadID;
+            elseif isfield(S(depl(ii)), 'id') && ~isempty(S(depl(ii)).id)
+                fileId = S(depl(ii)).id;
+            end
+
+            available_data{ad}.uploadid = fileId;  % keep your existing fieldname
+
             available_data{ad}.lat = lat(st);
             available_data{ad}.lon = lon(st);
             available_data{ad}.days = length(overlap);
@@ -196,5 +208,23 @@ m_line(bndry_lon,bndry_lat,'Parent',AXES,'Color',[1.00,0.07,0.65],'LineWidth',1)
 end
 end
 
+function dt = parseICESdt(s)
+% Robust parser for ICES datetime strings, e.g.
+% 2024-03-01T00:00:00
+% 2024-03-01T00:00:00Z
+% 2024-03-01T00:00:00.000000+00:00
+
+s = char(string(s));
+
+% remove fractional seconds
+s = regexprep(s, '\.\d+', '');
+
+% remove trailing timezone (Z or +hh:mm / -hh:mm)
+s = regexprep(s, '(Z|[+\-]\d\d:\d\d)$', '');
+
+% parse (UTC), then drop timezone so it compares to naive datetimes
+dt = datetime(s, 'InputFormat', "yyyy-MM-dd'T'HH:mm:ss", 'TimeZone', 'UTC');
+dt.TimeZone = '';
+end
 
 
